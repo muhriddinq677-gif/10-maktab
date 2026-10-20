@@ -1,0 +1,860 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>10-maktab | Ro‘yxatdan o‘tish</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, Arial;
+    color: #253153;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background:
+        radial-gradient(circle at top left, #d9e7ff, transparent 55%),
+        radial-gradient(circle at bottom right, #ffe5f1, transparent 55%),
+        #f6f7ff;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: 0;
+}
+
+.register {
+    width: min(100%, 490px);
+}
+
+.card {
+    background: white;
+    border: 1px solid #e8ebfa;
+    border-radius: 23px;
+    padding: 22px;
+    box-shadow: 0 12px 35px #303b7910;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    font-size: 34px;
+    background: #ffda68;
+    width: 70px;
+    height: 70px;
+    display: grid;
+    place-items: center;
+    border-radius: 22px;
+    margin: auto auto 12px;
+}
+
+.muted {
+    color: #7b849d;
+}
+
+.progress {
+    display: flex;
+    gap: 7px;
+    margin: 18px 0;
+}
+
+.progress i {
+    height: 7px;
+    background: #e6e9f6;
+    flex: 1;
+    border-radius: 9px;
+}
+
+.progress i.on {
+    background: #6864ed;
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+h2 {
+    font-size: 22px;
+    margin: 5px 0 7px;
+}
+
+p {
+    line-height: 1.5;
+}
+
+small {
+    color: #75809b;
+}
+
+.choices {
+    display: grid;
+    gap: 10px;
+}
+
+.choice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 2px solid #e7eaf6;
+    border-radius: 15px;
+    cursor: pointer;
+    background: white;
+}
+
+.choice:has(input:checked) {
+    border-color: #6565f4;
+    background: #f0efff;
+}
+
+.choice input {
+    accent-color: #5b5fe9;
+}
+
+.field {
+    display: grid;
+    gap: 7px;
+    margin: 13px 0;
+}
+
+.field input,
+.field select {
+    padding: 14px;
+    border: 1px solid #dce2f0;
+    border-radius: 13px;
+    width: 100%;
+    min-width: 0;
+}
+
+.password-box {
+    background: #f1f0ff;
+    border: 2px solid #dedaff;
+    border-radius: 16px;
+    padding: 18px;
+    margin-top: 15px;
+}
+
+.password-box input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #d5d5ef;
+    border-radius: 12px;
+    outline-color: #6366f1;
+    font-size: 16px;
+}
+
+.password-note {
+    font-size: 12px;
+    color: #7b849d;
+}
+
+.error {
+    color: #c3344a;
+    min-height: 20px;
+    font-size: 13px;
+}
+
+.actions {
+    display: flex;
+    gap: 9px;
+    margin-top: 20px;
+}
+
+.actions button {
+    flex: 1;
+}
+
+.btn {
+    background: #5759e9;
+    color: white;
+    border-radius: 13px;
+    padding: 13px 17px;
+    font-weight: 750;
+}
+
+.back {
+    background: #eef0fa;
+    color: #39436b;
+    border-radius: 13px;
+    padding: 13px;
+}
+
+.hidden {
+    display: none !important;
+}
+</style>
+</head>
+
+<body>
+
+<main class="register card">
+
+    <div class="hero">
+        <div class="logo">🏫</div>
+        <h1>10-maktab</h1>
+        <small>Platformaga xush kelibsiz</small>
+    </div>
+
+    <div class="progress" id="progress"></div>
+
+    <form id="form">
+
+        <!-- 1. MAKTAB -->
+
+        <section class="step active" data-name="school">
+
+            <h2>Qayerda o‘qiysiz yoki ishlaysiz?</h2>
+
+            <p class="muted">Bitta variantni tanlang.</p>
+
+            <div class="choices">
+
+                <label class="choice">
+                    <input type="radio" name="school" value="Shu maktabda">
+                    🏫 Shu maktabda
+                </label>
+
+                <label class="choice">
+                    <input type="radio" name="school" value="Boshqa maktabda">
+                    🎒 Boshqa maktabda
+                </label>
+
+                <label class="choice">
+                    <input type="radio" name="school" value="Boshqa">
+                    ✨ Boshqa
+                </label>
+
+            </div>
+        </section>
+
+        <!-- 2. ROL -->
+
+        <section class="step" data-name="role">
+
+            <h2>Siz kimsiz?</h2>
+
+            <p class="muted">O‘zingizga mos rolni belgilang.</p>
+
+            <div class="choices">
+
+                <label class="choice">
+                    <input type="radio" name="role" value="O'quvchi">
+                    🎓 O‘quvchi
+                </label>
+
+                <label class="choice">
+                    <input type="radio" name="role" value="O'qituvchi">
+                    👩‍🏫 O‘qituvchi
+                </label>
+
+                <label class="choice">
+                    <input type="radio" name="role" value="Direktor">
+                    👔 Direktor
+                </label>
+
+                <label class="choice">
+                    <input type="radio" name="role" value="Zamdirektor">
+                    📋 Zamdirektor
+                </label>
+
+                <label class="choice">
+                    <input type="radio" name="role" value="Boshqa">
+                    ✨ Boshqa
+                </label>
+
+            </div>
+        </section>
+
+        <!-- 3. MAXSUS KOD -->
+
+        <section class="step" data-name="password">
+
+            <h2>🔐 Xodimlar uchun kod</h2>
+
+            <p class="muted">
+                O‘qituvchi, direktor, zamdirektor va boshqa rollar uchun.
+            </p>
+
+            <div class="password-box">
+
+                <label for="staffPassword">
+                    Maxsus kod
+                </label>
+
+                <input
+                    type="password"
+                    id="staffPassword"
+                    placeholder="Kodni kiriting"
+                    autocomplete="off"
+                    maxlength="100"
+                >
+
+            </div>
+
+            <p class="password-note">
+                Bu versiyada kod brauzerda tekshiriladi.
+                Haqiqiy himoya uchun server tekshiruvi zarur.
+            </p>
+
+        </section>
+
+        <!-- 4. O‘QITUVCHI -->
+
+        <section class="step" data-name="teacher">
+
+            <h2>Sinf rahbarligingiz bormi?</h2>
+
+            <p class="muted">
+                Bu savol faqat o‘qituvchilar uchun.
+            </p>
+
+            <div class="choices">
+
+                <label class="choice">
+                    <input
+                        type="radio"
+                        name="teacher"
+                        value="Sinf rahbariman"
+                    >
+                    🏫 Sinf rahbariman
+                </label>
+
+                <label class="choice">
+                    <input
+                        type="radio"
+                        name="teacher"
+                        value="Sinf rahbari emasman"
+                    >
+                    📚 Sinf rahbari emasman
+                </label>
+
+                <label class="choice">
+                    <input type="radio" name="teacher" value="Boshqa">
+                    ✨ Boshqa
+                </label>
+
+            </div>
+
+            <div class="field hidden" id="teacherClassWrap">
+
+                <label for="teacherClass">
+                    Qaysi sinfga rahbarsiz?
+                </label>
+
+                <select id="teacherClass">
+                    <option value="">Sinfni tanlang</option>
+                </select>
+
+            </div>
+
+        </section>
+
+        <!-- 5. JINS -->
+
+        <section class="step" data-name="gender">
+
+            <h2>Jinsingiz</h2>
+
+            <div class="choices">
+
+                <label class="choice">
+                    <input type="radio" name="gender" value="Erkak">
+                    👨 Erkak
+                </label>
+
+                <label class="choice">
+                    <input type="radio" name="gender" value="Ayol">
+                    👩 Ayol
+                </label>
+
+            </div>
+
+        </section>
+
+        <!-- 6. MA'LUMOTLAR -->
+
+        <section class="step" data-name="details">
+
+            <h2>Shaxsiy ma’lumotlar</h2>
+
+            <p class="muted">Oxirgi bosqich.</p>
+
+            <div class="field">
+
+                <label for="className" id="classLabel">
+                    Sinfingiz
+                </label>
+
+                <input
+                    id="className"
+                    placeholder="Masalan: 9-A"
+                    maxlength="20"
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label for="firstName">Ism</label>
+
+                <input
+                    id="firstName"
+                    maxlength="50"
+                    autocomplete="given-name"
+                    required
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label for="lastName">Familiya</label>
+
+                <input
+                    id="lastName"
+                    maxlength="50"
+                    autocomplete="family-name"
+                    required
+                >
+
+            </div>
+
+        </section>
+
+        <p class="error" id="error" role="alert"></p>
+
+        <div class="actions">
+
+            <button type="button" class="back hidden" id="back">
+                ← Orqaga
+            </button>
+
+            <button type="button" class="btn" id="next">
+                Keyingisi →
+            </button>
+
+            <button type="submit" class="btn hidden" id="save">
+                💾 Saqlash va kirish
+            </button>
+
+        </div>
+
+    </form>
+
+</main>
+
+<script>
+
+const $ = s => document.querySelector(s);
+
+const steps = [...document.querySelectorAll(".step")];
+
+const progress = $("#progress");
+
+let pos = 0;
+
+
+// SINFLARNI YARATISH
+
+for (let n = 1; n <= 11; n++) {
+
+    for (let letter of ["A", "B", "D"]) {
+
+        $("#teacherClass").add(
+            new Option(
+                n + "-" + letter,
+                n + "-" + letter
+            )
+        );
+
+    }
+
+}
+
+
+// TANLANGAN VARIANT
+
+function selected(name) {
+
+    return document.querySelector(
+        'input[name="' + name + '"]:checked'
+    )?.value || "";
+
+}
+
+
+// ====================================
+// FAQAT LOKAL SINOV UCHUN MAXSUS KOD
+// Kodni shu qatordan almashtirasiz.
+// ====================================
+
+const DEMO_STAFF_CODE = "DEMO-2026";
+
+
+// BOSQICHLAR
+
+function path() {
+
+    let r = selected("role");
+
+    // O‘QUVCHIDAN PAROL SO‘RALMAYDI
+
+    if (r === "O'quvchi") {
+
+        return [
+            "school",
+            "role",
+            "gender",
+            "details"
+        ];
+
+    }
+
+    // O‘QITUVCHIDAN PAROL SO‘RALADI
+
+    if (r === "O'qituvchi") {
+
+        return [
+            "school",
+            "role",
+            "password",
+            "teacher",
+            "gender",
+            "details"
+        ];
+
+    }
+
+    // DIREKTOR, ZAMDIREKTOR VA BOSHQA
+
+    return [
+        "school",
+        "role",
+        "password",
+        "gender",
+        "details"
+    ];
+
+}
+
+
+// BOSQICHNI CHIZISH
+
+function draw() {
+
+    const flow = path();
+
+    if (pos >= flow.length) {
+        pos = flow.length - 1;
+    }
+
+    let name = flow[pos];
+
+    steps.forEach(x => {
+
+        x.classList.toggle(
+            "active",
+            x.dataset.name === name
+        );
+
+    });
+
+    progress.innerHTML = flow.map((_, i) => {
+
+        return '<i class="' +
+            (i <= pos ? "on" : "") +
+            '"></i>';
+
+    }).join("");
+
+    $("#back").classList.toggle(
+        "hidden",
+        pos === 0
+    );
+
+    $("#next").classList.toggle(
+        "hidden",
+        pos === flow.length - 1
+    );
+
+    $("#save").classList.toggle(
+        "hidden",
+        pos !== flow.length - 1
+    );
+
+    $("#error").textContent = "";
+
+    $("#classLabel").textContent =
+        selected("role") === "O'quvchi"
+        ? "Sinfingiz"
+        : "Sinf (tegishli bo‘lsa)";
+
+    $("#className").required =
+        selected("role") === "O'quvchi";
+
+}
+
+
+// TEKSHIRISH
+
+function valid() {
+
+    let name = path()[pos];
+
+    if (name === "details") {
+        return $("#form").reportValidity();
+    }
+
+    if (name === "password") {
+
+        if (
+            $("#staffPassword").value !== DEMO_STAFF_CODE
+        ) {
+
+            $("#error").textContent =
+                "❌ Kod noto‘g‘ri.";
+
+            return false;
+
+        }
+
+        return true;
+
+    }
+
+    if (!selected(name)) {
+
+        $("#error").textContent =
+            "Iltimos, avval variantni tanlang.";
+
+        return false;
+
+    }
+
+    if (
+        name === "teacher" &&
+        selected("teacher") === "Sinf rahbariman" &&
+        !$("#teacherClass").value
+    ) {
+
+        $("#error").textContent =
+            "Rahbarlik qiladigan sinfni tanlang.";
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+
+// KEYINGI BOSQICH
+
+$("#next").onclick = () => {
+
+    if (valid()) {
+
+        pos++;
+
+        draw();
+
+    }
+
+};
+
+
+// ORQAGA
+
+$("#back").onclick = () => {
+
+    pos--;
+
+    draw();
+
+};
+
+
+// SINF RAHBARI TANLOVI
+
+document.querySelectorAll(
+    'input[name="teacher"]'
+).forEach(el => {
+
+    el.onchange = () => {
+
+        $("#teacherClassWrap").classList.toggle(
+            "hidden",
+            selected("teacher") !== "Sinf rahbariman"
+        );
+
+    };
+
+});
+
+
+// XATOLIKNI TOZALASH
+
+document.querySelectorAll(
+    'input[type="radio"]'
+).forEach(el => {
+
+    el.addEventListener("change", () => {
+
+        $("#error").textContent = "";
+
+    });
+
+});
+
+
+// PROFILNI SAQLASH
+
+$("#form").onsubmit = e => {
+
+    e.preventDefault();
+
+    if (!valid()) return;
+
+    let data = {
+
+        school: selected("school"),
+
+        role: selected("role"),
+
+        teacher:
+            selected("role") === "O'qituvchi"
+            ? selected("teacher")
+            : "",
+
+        teacherClass:
+            selected("teacher") === "Sinf rahbariman"
+            ? $("#teacherClass").value
+            : "",
+
+        gender: selected("gender"),
+
+        className: $("#className").value.trim(),
+
+        firstName: $("#firstName").value.trim(),
+
+        lastName: $("#lastName").value.trim(),
+
+        registered: true,
+
+        id: (
+            globalThis.crypto?.randomUUID?.() ||
+            "profile-" +
+            Date.now() +
+            "-" +
+            Math.random().toString(36).slice(2)
+        )
+
+    };
+
+    if (
+        !data.firstName ||
+        !data.lastName ||
+        (
+            data.role === "O'quvchi" &&
+            !data.className
+        )
+    ) {
+
+        $("#error").textContent =
+            "Majburiy maydonlarni to‘ldiring.";
+
+        return;
+
+    }
+
+    try {
+
+        // JORIY PROFIL
+
+        localStorage.setItem(
+            "maktabUser",
+            JSON.stringify(data)
+        );
+
+
+        // SCOREBOARD UCHUN PROFILLAR
+
+        let profiles = [];
+
+        try {
+
+            profiles = JSON.parse(
+                localStorage.getItem("maktabProfiles")
+            ) || [];
+
+        } catch {}
+
+
+        if (!Array.isArray(profiles)) {
+            profiles = [];
+        }
+
+        profiles.push(data);
+
+        localStorage.setItem(
+            "maktabProfiles",
+            JSON.stringify(profiles)
+        );
+
+
+        // ASOSIY SAHIFAGA O‘TISH
+
+        location.href = "index.html";
+
+    } catch {
+
+        $("#error").textContent =
+            "Saqlashda xatolik yuz berdi.";
+
+    }
+
+};
+
+
+// AVVAL RO‘YXATDAN O‘TGAN BO‘LSA
+
+try {
+
+    if (
+        JSON.parse(
+            localStorage.getItem("maktabUser")
+        )?.registered
+    ) {
+
+        location.replace("index.html");
+
+    }
+
+} catch {}
+
+draw();
+
+</script>
+
+</body>
+</html>
