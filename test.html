@@ -1,21 +1,444 @@
-<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Test yechish | 10-maktab</title><style>
-*{box-sizing:border-box}body{margin:0;background:#f5f6ff;color:#263153;font:15px system-ui,Arial;min-height:100vh;display:flex;flex-direction:column}button,input,select{font:inherit}button{cursor:pointer;border:0}a{text-decoration:none;color:inherit}.nav{position:sticky;top:0;z-index:5;background:white;box-shadow:0 5px 25px #29366b12;padding:12px max(14px,calc((100vw - 1160px)/2));display:flex;align-items:center;gap:12px}.logo{font-size:20px;font-weight:850;display:flex;align-items:center;gap:8px}.logo img{width:37px;height:37px;object-fit:contain}.push{margin-left:auto}.icon{width:42px;height:42px;background:#edf0ff;border-radius:13px;color:#3d50bd;font-size:22px}.wrap{width:min(1100px,100%);margin:auto;padding:24px 16px;flex:1}.hero{border-radius:24px;background:linear-gradient(110deg,#ffe382,#ffc45c);padding:25px;display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px}.hero h1{margin:0 0 6px;font-size:clamp(23px,4vw,33px)}.hero p{margin:0;color:#6c572b}.action{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}.search,.select{padding:13px;border:1px solid #dfe4f3;border-radius:14px;background:#fff;outline-color:#6767ef}.search{flex:1;min-width:160px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:17px}.card,.exam{background:white;border:1px solid #e8ebf7;border-radius:20px;padding:20px;box-shadow:0 10px 28px #2b3a7410;min-width:0}.card h2{margin:12px 0;font-size:21px}.muted{color:#7d86a0;font-size:13px}.pill{display:inline-block;padding:7px 11px;background:#eae8ff;color:#5653b7;border-radius:10px;font-size:12px;font-weight:750}.primary{background:linear-gradient(100deg,#585fe8,#9b5eea);color:white;border-radius:13px;padding:13px 17px;font-weight:750}.secondary{background:#eef1ff;color:#454fc1;border-radius:13px;padding:13px 17px;font-weight:750}.primary:disabled{opacity:.45;cursor:not-allowed}.empty{text-align:center;padding:45px 16px;background:white;border:2px dashed #e2e5f4;border-radius:18px;color:#7d86a0}.shade{position:fixed;inset:0;background:#111b4d83;z-index:9;display:none}.shade.on{display:block}.drawer{position:fixed;top:0;bottom:0;left:0;z-index:10;width:min(310px,88vw);background:linear-gradient(160deg,#426beb,#223caa);padding:20px;color:white;transform:translateX(-105%);transition:.22s;overflow:auto}.drawer.on{transform:translateX(0)}.drawer a{display:block;padding:15px;background:#ffffff19;border-radius:12px;margin:8px 0;font-weight:650}.drawer a.active{background:#ffffff45}.drawerhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.close{background:#ffffff30;color:white;border-radius:10px;padding:9px 13px}.exam{max-width:760px;margin:auto}.question{font-size:21px;font-weight:750;margin:22px 0}.answers{display:grid;gap:10px}.answer{display:flex;align-items:center;gap:12px;border:2px solid #e8ebf7;border-radius:14px;padding:15px;cursor:pointer}.answer:has(input:checked){border-color:#6366f1;background:#f0efff}.answer input{accent-color:#6366f1}.bar{height:9px;background:#eceefa;border-radius:12px;overflow:hidden;margin-top:16px}.bar span{display:block;height:100%;background:#6964ee;transition:.2s}.examnav{display:flex;justify-content:space-between;gap:10px;margin-top:24px}.result{text-align:center}.result strong{font-size:42px;color:#5557ce}.footer{background:white;border-top:1px solid #e5e9f5;padding:19px;text-align:center;color:#7b849d;font-size:13px}@media(max-width:420px){.nav{gap:8px}.logo{font-size:16px}.logo img{width:30px;height:30px}.hero{padding:18px}.card,.exam{padding:16px}}
-</style></head><body><div class="shade" id="shade"></div><aside class="drawer" id="drawer"><div class="drawerhead"><b>🏫 10-maktab</b><button class="close" id="closeDrawer">✕</button></div><a href="index.html">🏠 Asosiy</a><a href="elon.html">📢 E'lonlar</a><a class="active" href="test.html">📝 Test yechish</a><a class="manager" href="test-qoshish.html">➕ Test qo‘shish</a><a class="manager" href="vazifa-qoshish.html">📚 Vazifa qo‘yish</a><a href="natijalar.html">🏆 Natijalarim</a><a class="manager" href="topshiriqlar.html">📥 Topshirilgan ishlar</a></aside>
-<nav class="nav"><button class="icon" id="menu" aria-label="Menyu">☰</button><a class="logo" href="index.html"><img src="logo.png" alt="" onerror="this.style.display='none'">10-maktab</a><span class="push"></span><a class="icon" href="index.html" style="display:grid;place-items:center" aria-label="Bosh sahifa">🏠</a></nav>
-<main class="wrap"><header class="hero"><div><h1>📝 Test yechish</h1><p>Fanlarni tanlang, bilimingizni sinab ko‘ring!</p></div><span style="font-size:42px">🎯</span></header><section id="catalog"><div class="action"><input class="search" id="search" type="search" placeholder="🔎 Test qidirish..."><select class="select" id="subject"><option value="">📚 Barcha fanlar</option></select></div><div id="cards" class="cards"></div><p class="muted">Hozirgi testlar shu brauzerda saqlanadi. Boshqa qurilmalardagi o‘qituvchi testlarini ko‘rsatish uchun umumiy baza ulanadi.</p></section><section id="exam" class="exam" hidden></section></main><footer class="footer">© 2026 10-maktab • Bilim sari birga! 🎓</footer>
+
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Test yechish | 10-maktab</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f6ff;color:#263153;font:15px system-ui,Arial;min-height:100vh;display:flex;flex-direction:column}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0}
+a{text-decoration:none;color:inherit}
+.nav{position:sticky;top:0;z-index:5;background:white;box-shadow:0 5px 25px #29366b12;padding:12px max(14px,calc((100vw - 1160px)/2));display:flex;align-items:center;gap:12px}
+.logo{font-size:20px;font-weight:850;display:flex;align-items:center;gap:8px}
+.logo img{width:37px;height:37px;object-fit:contain}
+.push{margin-left:auto}
+.icon{width:42px;height:42px;background:#edf0ff;border-radius:13px;color:#3d50bd;font-size:22px}
+.wrap{width:min(1100px,100%);margin:auto;padding:24px 16px;flex:1}
+.hero{border-radius:24px;background:linear-gradient(110deg,#ffe382,#ffc45c);padding:25px;display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px}
+.hero h1{margin:0 0 6px;font-size:clamp(23px,4vw,33px)}
+.hero p{margin:0;color:#6c572b}
+.action{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.search,.select{padding:13px;border:1px solid #dfe4f3;border-radius:14px;background:#fff;outline-color:#6767ef}
+.search{flex:1;min-width:160px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:17px}
+.card,.exam{background:white;border:1px solid #e8ebf7;border-radius:20px;padding:20px;box-shadow:0 10px 28px #2b3a7410;min-width:0}
+.card h2{margin:12px 0;font-size:21px}
+.muted{color:#7d86a0;font-size:13px}
+.pill{display:inline-block;padding:7px 11px;background:#eae8ff;color:#5653b7;border-radius:10px;font-size:12px;font-weight:750}
+.primary{background:linear-gradient(100deg,#585fe8,#9b5eea);color:white;border-radius:13px;padding:13px 17px;font-weight:750}
+.secondary{background:#eef1ff;color:#454fc1;border-radius:13px;padding:13px 17px;font-weight:750}
+.primary:disabled{opacity:.45;cursor:not-allowed}
+.empty{text-align:center;padding:45px 16px;background:white;border:2px dashed #e2e5f4;border-radius:18px;color:#7d86a0}
+.shade{position:fixed;inset:0;background:#111b4d83;z-index:9;display:none}
+.shade.on{display:block}
+.drawer{position:fixed;top:0;bottom:0;left:0;z-index:10;width:min(310px,88vw);background:linear-gradient(160deg,#426beb,#223caa);padding:20px;color:white;transform:translateX(-105%);transition:.22s;overflow:auto}
+.drawer.on{transform:translateX(0)}
+.drawer a{display:block;padding:15px;background:#ffffff19;border-radius:12px;margin:8px 0;font-weight:650}
+.drawer a.active{background:#ffffff45}
+.drawerhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.close{background:#ffffff30;color:white;border-radius:10px;padding:9px 13px}
+.exam{max-width:760px;margin:auto}
+.question{font-size:21px;font-weight:750;margin:22px 0}
+.answers{display:grid;gap:10px}
+.answer{display:flex;align-items:center;gap:12px;border:2px solid #e8ebf7;border-radius:14px;padding:15px;cursor:pointer}
+.answer:has(input:checked){border-color:#6366f1;background:#f0efff}
+.answer input{accent-color:#6366f1}
+.bar{height:9px;background:#eceefa;border-radius:12px;overflow:hidden;margin-top:16px}
+.bar span{display:block;height:100%;background:#6964ee;transition:.2s}
+.examnav{display:flex;justify-content:space-between;gap:10px;margin-top:24px}
+.result{text-align:center}
+.result strong{font-size:42px;color:#5557ce}
+.footer{background:white;border-top:1px solid #e5e9f5;padding:19px;text-align:center;color:#7b849d;font-size:13px}
+@media(max-width:420px){
+.nav{gap:8px}
+.logo{font-size:16px}
+.logo img{width:30px;height:30px}
+.hero{padding:18px}
+.card,.exam{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<div class="shade" id="shade"></div>
+
+<aside class="drawer" id="drawer">
+<div class="drawerhead">
+<b>🏫 10-maktab</b>
+<button class="close" id="closeDrawer">✕</button>
+</div>
+<a href="index.html">🏠 Asosiy</a>
+<a href="elon.html">📢 E'lonlar</a>
+<a class="active" href="test.html">📝 Test yechish</a>
+<a class="manager" href="test-qoshish.html">➕ Test qo‘shish</a>
+<a class="manager" href="vazifa-qoshish.html">📚 Vazifa qo‘yish</a>
+<a href="natijalar.html">🏆 Natijalarim</a>
+<a class="manager" href="topshiriqlar.html">📥 Topshirilgan ishlar</a>
+</aside>
+
+<nav class="nav">
+<button class="icon" id="menu" aria-label="Menyu">☰</button>
+<a class="logo" href="index.html">
+<img src="logo.png" alt="" onerror="this.style.display='none'">
+10-maktab
+</a>
+<span class="push"></span>
+<a class="icon" href="index.html" style="display:grid;place-items:center" aria-label="Bosh sahifa">🏠</a>
+</nav>
+
+<main class="wrap">
+<header class="hero">
+<div>
+<h1>📝 Test yechish</h1>
+<p>Fanlarni tanlang, bilimingizni sinab ko‘ring!</p>
+</div>
+<span style="font-size:42px">🎯</span>
+</header>
+
+<section id="catalog">
+<div class="action">
+<input class="search" id="search" type="search" placeholder="🔎 Test qidirish...">
+<select class="select" id="subject">
+<option value="">📚 Barcha fanlar</option>
+</select>
+</div>
+<div id="cards" class="cards"></div>
+<p class="muted">
+Hozirgi testlar shu brauzerda saqlanadi. Boshqa qurilmalardagi o‘qituvchi testlarini ko‘rsatish uchun umumiy baza ulanadi.
+</p>
+</section>
+
+<section id="exam" class="exam" hidden></section>
+</main>
+
+<footer class="footer">
+© 2026 10-maktab • Bilim sari birga! 🎓
+</footer>
+
 <script>
-let user;try{user=JSON.parse(localStorage.getItem('maktabUser'))}catch{}if(!user?.registered)location.replace('login.html');const role=user?.role||user?.rol||'';if(!["O'qituvchi","Direktor","Zamdirektor"].includes(role))document.querySelectorAll('.manager').forEach(x=>x.remove());const $=id=>document.getElementById(id);$('menu').onclick=()=>{$('drawer').classList.add('on');$('shade').classList.add('on')};function close(){ $('drawer').classList.remove('on');$('shade').classList.remove('on') }$('closeDrawer').onclick=$('shade').onclick=close;document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
-const demo=[{id:'demo-math',title:'Matematika — namuna',subject:'Matematika',author:'Namuna',questions:[{text:'7 × 8 nechaga teng?',options:['54','56','64','48'],correct:1},{text:'36 ning kvadrat ildizi nechaga teng?',options:['4','5','6','9'],correct:2},{text:'15 + 27 = ?',options:['42','41','43','40'],correct:0}]},{id:'demo-english',title:'Ingliz tili — namuna',subject:'Ingliz tili',author:'Namuna',questions:[{text:'“Book” so‘zining tarjimasi?',options:['Daftar','Kitob','Qalam','Maktab'],correct:1},{text:'I ___ a student.',options:['am','is','are','be'],correct:0}]}];
-function read(key){try{let v=JSON.parse(localStorage.getItem(key));return Array.isArray(v)?v:[]}catch{return []}}
-function allTests(){return [...demo,...read('maktabTests').filter(t=>t&&Array.isArray(t.questions)&&t.questions.length)]}
-function node(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
-let tests=allTests(),current=null,index=0,answers=[];
-function catalog(){let subjects=[...new Set(tests.map(t=>t.subject||'Boshqa'))];subjects.forEach(s=>{let o=new Option(s,s);$('subject').add(o)});renderCards()}
-function renderCards(){let q=$('search').value.toLowerCase(),sub=$('subject').value,box=$('cards');box.replaceChildren();let filtered=tests.filter(t=>(t.title||'').toLowerCase().includes(q)&&(!sub||t.subject===sub));if(!filtered.length){box.append(node('div','empty','📭 Hozircha mos test yo‘q.'));return}filtered.forEach(t=>{let c=node('article','card');c.append(node('span','pill','📚 '+(t.subject||'Boshqa')),node('h2','',t.title||'Nomsiz test'),node('p','muted','👤 '+(t.author||'O‘qituvchi')+' • ❓ '+t.questions.length+' ta savol'));let b=node('button','primary','🚀 Testni boshlash');b.onclick=()=>start(t);c.append(b);box.append(c)})}
+let user;
+
+try{
+ user=JSON.parse(localStorage.getItem('maktabUser'));
+}catch{}
+
+if(!user?.registered){
+ location.replace('login.html');
+}
+
+const role=user?.role||user?.rol||'';
+
+if(!["O'qituvchi","Direktor","Zamdirektor","Boshqa"].includes(role)){
+ document.querySelectorAll('.manager').forEach(x=>x.remove());
+}
+
+const $=id=>document.getElementById(id);
+
+$('menu').onclick=()=>{
+ $('drawer').classList.add('on');
+ $('shade').classList.add('on');
+};
+
+function close(){
+ $('drawer').classList.remove('on');
+ $('shade').classList.remove('on');
+}
+
+$('closeDrawer').onclick=$('shade').onclick=close;
+
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape')close();
+});
+
+const demo=[
+ {
+  id:'demo-math',
+  title:'Matematika — namuna',
+  subject:'Matematika',
+  author:'Namuna',
+  questions:[
+   {text:'7 × 8 nechaga teng?',options:['54','56','64','48'],correct:1},
+   {text:'36 ning kvadrat ildizi nechaga teng?',options:['4','5','6','9'],correct:2},
+   {text:'15 + 27 = ?',options:['42','41','43','40'],correct:0}
+  ]
+ },
+ {
+  id:'demo-english',
+  title:'Ingliz tili — namuna',
+  subject:'Ingliz tili',
+  author:'Namuna',
+  questions:[
+   {text:'“Book” so‘zining tarjimasi?',options:['Daftar','Kitob','Qalam','Maktab'],correct:1},
+   {text:'I ___ a student.',options:['am','is','are','be'],correct:0}
+  ]
+ }
+];
+
+function read(key){
+ try{
+  let v=JSON.parse(localStorage.getItem(key));
+  return Array.isArray(v)?v:[];
+ }catch{
+  return [];
+ }
+}
+
+function allTests(){
+ return [
+  ...demo,
+  ...read('maktabTests').filter(t=>t&&Array.isArray(t.questions)&&t.questions.length)
+ ];
+}
+
+function node(tag,cls,txt){
+ const n=document.createElement(tag);
+ if(cls)n.className=cls;
+ if(txt!==undefined)n.textContent=txt;
+ return n;
+}
+
+let tests=allTests();
+let current=null;
+let index=0;
+let answers=[];
+
+function catalog(){
+ let subjects=[...new Set(tests.map(t=>t.subject||'Boshqa'))];
+
+ subjects.forEach(s=>{
+  let o=new Option(s,s);
+  $('subject').add(o);
+ });
+
+ renderCards();
+}
+
+function renderCards(){
+ let q=$('search').value.toLowerCase();
+ let sub=$('subject').value;
+ let box=$('cards');
+
+ box.replaceChildren();
+
+ let filtered=tests.filter(t=>
+  (t.title||'').toLowerCase().includes(q)&&
+  (!sub||t.subject===sub)
+ );
+
+ if(!filtered.length){
+  box.append(node('div','empty','📭 Hozircha mos test yo‘q.'));
+  return;
+ }
+
+ filtered.forEach(t=>{
+  let c=node('article','card');
+
+  c.append(
+   node('span','pill','📚 '+(t.subject||'Boshqa')),
+   node('h2','',t.title||'Nomsiz test'),
+   node('p','muted','👤 '+(t.author||'O‘qituvchi')+' • ❓ '+t.questions.length+' ta savol')
+  );
+
+  let b=node('button','primary','🚀 Testni boshlash');
+  b.onclick=()=>start(t);
+
+  c.append(b);
+  box.append(c);
+ });
+}
+
 $('search').oninput=$('subject').onchange=renderCards;
-function start(t){current=t;index=0;answers=Array(t.questions.length).fill(null);$('catalog').hidden=true;$('exam').hidden=false;draw();window.scrollTo(0,0)}
-function draw(){let q=current.questions[index],box=$('exam');box.replaceChildren();box.append(node('span','pill','Savol '+(index+1)+' / '+current.questions.length),node('h2','',current.title));let bar=node('div','bar'),fill=node('span');fill.style.width=((index+1)/current.questions.length*100)+'%';bar.append(fill);box.append(bar,node('div','question',q.text||q.question||'Savol'));let opts=node('div','answers');(q.options||[]).forEach((v,i)=>{let label=node('label','answer'),radio=document.createElement('input');radio.type='radio';radio.name='answer';radio.checked=answers[index]===i;radio.onchange=()=>{answers[index]=i;draw()};label.append(radio,node('span','',String.fromCharCode(65+i)+'. '+v));opts.append(label)});box.append(opts);let nav=node('div','examnav'),back=node('button','secondary','← Orqaga'),next=node('button','primary',index===current.questions.length-1?'✅ Yakunlash':'Keyingisi →');back.onclick=()=>{if(index){index--;draw()}else if(confirm('Testdan chiqasizmi?'))exit()};next.disabled=answers[index]===null;next.onclick=()=>{if(index<current.questions.length-1){index++;draw()}else finish()};nav.append(back,next);box.append(nav)}
-function exit(){$('exam').hidden=true;$('catalog').hidden=false;current=null;renderCards()}
-function finish(){let score=current.questions.reduce((sum,q,i)=>sum+(answers[i]===Number(q.correct??q.answer)?1:0),0),total=current.questions.length;let result={id:Date.now().toString(),testId:current.id,title:current.title,subject:current.subject,score,total,answers:[...answers],date:new Date().toISOString(),student:[user.firstName||user.ism,user.lastName||user.familiya].filter(Boolean).join(' '),sinf:user.className||user.sinf||'',profileId:user.id||user.profileId||[[user.firstName||user.ism,user.lastName||user.familiya].filter(Boolean).join(' '),user.className||user.sinf||''].join('|')};let key='maktabTestResults',list=read(key);list.push(result);try{localStorage.setItem(key,JSON.stringify(list))}catch{alert('Natijani saqlashda xatolik yuz berdi')};let box=$('exam');box.replaceChildren();let r=node('div','result');r.append(node('div','','🏆'),node('h2','','Test yakunlandi!'),node('strong','',score+' / '+total),node('p','',Math.round(score/total*100)+'% to‘g‘ri javob • '+(score*10+(total-score))+' ball ⭐'));let btn=node('button','primary','📚 Testlarga qaytish');btn.onclick=exit;r.append(btn);box.append(r)}
+
+function start(t){
+ current=t;
+ index=0;
+ answers=Array(t.questions.length).fill(null);
+
+ $('catalog').hidden=true;
+ $('exam').hidden=false;
+
+ draw();
+ window.scrollTo(0,0);
+}
+
+function draw(){
+ let q=current.questions[index];
+ let box=$('exam');
+
+ box.replaceChildren();
+
+ box.append(
+  node('span','pill','Savol '+(index+1)+' / '+current.questions.length),
+  node('h2','',current.title)
+ );
+
+ let bar=node('div','bar');
+ let fill=node('span');
+
+ fill.style.width=((index+1)/current.questions.length*100)+'%';
+ bar.append(fill);
+
+ box.append(
+  bar,
+  node('div','question',q.text||q.question||'Savol')
+ );
+
+ let opts=node('div','answers');
+
+ (q.options||[]).forEach((v,i)=>{
+  let label=node('label','answer');
+  let radio=document.createElement('input');
+
+  radio.type='radio';
+  radio.name='answer';
+  radio.checked=answers[index]===i;
+
+  radio.onchange=()=>{
+   answers[index]=i;
+   draw();
+  };
+
+  label.append(
+   radio,
+   node('span','',String.fromCharCode(65+i)+'. '+v)
+  );
+
+  opts.append(label);
+ });
+
+ box.append(opts);
+
+ let nav=node('div','examnav');
+ let back=node('button','secondary','← Orqaga');
+ let next=node(
+  'button',
+  'primary',
+  index===current.questions.length-1?'✅ Yakunlash':'Keyingisi →'
+ );
+
+ back.onclick=()=>{
+  if(index){
+   index--;
+   draw();
+  }else if(confirm('Testdan chiqasizmi?')){
+   exit();
+  }
+ };
+
+ next.disabled=answers[index]===null;
+
+ next.onclick=()=>{
+  if(index<current.questions.length-1){
+   index++;
+   draw();
+  }else{
+   finish();
+  }
+ };
+
+ nav.append(back,next);
+ box.append(nav);
+}
+
+function exit(){
+ $('exam').hidden=true;
+ $('catalog').hidden=false;
+ current=null;
+ renderCards();
+}
+
+// BALL QOIDASI:
+// TO‘G‘RI +10, NOTO‘G‘RI +1, JAVOBSIZ 0.
+// BIR TESTNING BALLI FAQAT BIR MARTA SAQLANADI.
+
+function finish(){
+ const total=current.questions.length;
+
+ const correct=current.questions.reduce((sum,q,i)=>
+  sum+(answers[i]!==null&&answers[i]===Number(q.correct??q.answer)?1:0),0
+ );
+
+ const wrong=current.questions.reduce((sum,q,i)=>
+  sum+(answers[i]!==null&&answers[i]!==Number(q.correct??q.answer)?1:0),0
+ );
+
+ const points=correct*10+wrong;
+
+ const student=[
+  user.firstName||user.ism,
+  user.lastName||user.familiya
+ ].filter(Boolean).join(' ');
+
+ const profileId=user.id||user.profileId||
+  [student,user.className||user.sinf||''].join('|');
+
+ const result={
+  id:Date.now().toString(),
+  testId:current.id,
+  title:current.title,
+  subject:current.subject,
+  score:correct,
+  total,
+  correct,
+  wrong,
+  points,
+  answers:[...answers],
+  date:new Date().toISOString(),
+  student,
+  sinf:user.className||user.sinf||'',
+  profileId
+ };
+
+ const key='maktabTestResults';
+ const list=read(key);
+
+ const previous=list.findIndex(r=>
+  r.testId===current.id&&
+  (
+   r.profileId===profileId||
+   (!r.profileId&&r.student===student)
+  )
+ );
+
+ if(previous<0){
+  list.push(result);
+ }
+
+ try{
+  localStorage.setItem(key,JSON.stringify(list));
+ }catch{
+  alert('Natijani saqlashda xatolik yuz berdi');
+ }
+
+ const box=$('exam');
+ box.replaceChildren();
+
+ const r=node('div','result');
+
+ r.append(
+  node('div','','🏆'),
+  node('h2','','Test yakunlandi!'),
+  node('strong','',correct+' / '+total),
+  node('p','',Math.round(correct/total*100)+'% to‘g‘ri javob • '+points+' ball ⭐')
+ );
+
+ if(previous>=0){
+  r.append(
+   node('p','muted','Bu test avval bajarilgan. Scoreboardga qayta ball qo‘shilmadi.')
+  );
+ }
+
+ const btn=node('button','primary','📚 Testlarga qaytish');
+ btn.onclick=exit;
+
+ r.append(btn);
+ box.append(r);
+}
+
 catalog();
-</script></body></html>
+</script>
+</body>
+</html>

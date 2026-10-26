@@ -1,12 +1,692 @@
-<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vazifa qo‘shish | 10-maktab</title><style>
-*{box-sizing:border-box}body{margin:0;background:#f5f6ff;color:#27304e;font:15px system-ui,Arial}button,input,textarea,select{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}.nav{background:white;position:sticky;top:0;z-index:5;padding:14px max(15px,calc((100vw - 1050px)/2));display:flex;align-items:center;gap:12px;box-shadow:0 3px 18px #24356a15}.nav b{font-size:19px}.nav a:last-child{margin-left:auto;color:#5356c5}.wrap{max-width:950px;margin:25px auto;padding:0 15px 45px}.hero{background:linear-gradient(115deg,#ffdf80,#ffc65c);border-radius:23px;padding:24px;margin-bottom:20px}.hero h1{margin:0 0 7px;font-size:clamp(24px,4vw,33px)}.hero p{margin:0;color:#6c562b}.card{background:white;border:1px solid #e8ebf7;border-radius:20px;padding:20px;margin:15px 0;box-shadow:0 8px 27px #2937710d}label.field{display:block;font-weight:700;margin:15px 0}.field input,.field textarea,.field select{display:block;margin-top:8px;width:100%;padding:13px;border:1.5px solid #dfe3f0;border-radius:12px;background:#fcfcff;outline-color:#6c67e7}.field textarea{min-height:125px;resize:vertical}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 15px}.classes{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:9px}.class{display:flex;gap:7px;align-items:center;padding:11px;border:1.5px solid #e2e6f4;border-radius:11px;cursor:pointer}.class:has(input:checked){background:#eeedff;border-color:#6561dd}.class input{accent-color:#6366e8}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.primary,.secondary,.danger{border:0;border-radius:12px;padding:13px 17px;font-weight:750}.primary{color:white;background:linear-gradient(100deg,#5c61e9,#a15be4)}.secondary{color:#5554c2;background:#eeefff}.danger{color:#c23d53;background:#fff0f1}.muted{font-size:13px;color:#7e879f}.saved{display:grid;gap:12px}.item{background:#f8f8ff;border:1px solid #ebedfa;border-radius:14px;padding:15px;overflow-wrap:anywhere}.item h3{margin:0 0 7px}.item .actions{margin-top:10px}.hidden{display:none!important}.error{color:#c43c50;font-weight:700}.foot{text-align:center;padding:22px;color:#858ba1}@media(max-width:560px){.grid{grid-template-columns:1fr}.card{padding:15px}.hero{padding:19px}.nav b{font-size:16px}}
-</style></head><body><nav class="nav"><a href="index.html" aria-label="Bosh sahifa">🏠</a><b>🏫 10-maktab</b><a href="index.html">← Asosiy</a></nav><main class="wrap"><header class="hero"><h1>📚 Vazifa qo‘shish</h1><p>O‘quvchilarga uy vazifasini tayyorlang va kerakli sinflarga yuboring.</p></header><p id="notice" class="error" role="alert"></p><section id="editor" class="card"><h2 id="formTitle">✍️ Yangi vazifa</h2><div class="grid"><label class="field">📘 Fan<input id="subject" maxlength="70" placeholder="Masalan: Matematika"></label><label class="field">📝 Vazifa nomi<input id="title" maxlength="120" placeholder="Masalan: 5-mavzu mashqlari"></label></div><label class="field">📄 Vazifa matni<textarea id="description" maxlength="10000" placeholder="O‘quvchilar bajarishi kerak bo‘lgan ishni batafsil yozing..."></textarea></label><label class="field">🔗 Havola (ixtiyoriy)<input id="link" type="url" placeholder="https://..."></label><div class="grid"><label class="field">📅 Topshirish muddati<input id="deadline" type="datetime-local"></label><label class="field">📥 Javob turi<select id="answerType"><option value="text">Matn</option><option value="link">Havola</option><option value="both">Matn yoki havola</option></select></label></div><h3>🎒 Qaysi sinflarga?</h3><p class="muted">Bir yoki bir nechta sinfni belgilang.</p><div id="classes" class="classes"></div><div class="actions"><button id="all" class="secondary" type="button">☑️ Hammasini tanlash</button><button id="clear" class="secondary" type="button">Tozalash</button></div><div class="actions"><button id="save" class="primary" type="button">💾 Vazifani saqlash</button><button id="cancel" class="secondary hidden" type="button">Bekor qilish</button></div><p class="muted">Vazifa saqlangach, tanlangan sinf o‘quvchilari uchun mo‘ljallanadi.</p></section><section class="card"><h2>📂 Men qo‘shgan vazifalar</h2><div id="saved" class="saved"></div></section><p class="muted">Hozirgi versiyada vazifalar shu brauzerda saqlanadi. Turli telefonlarga tarqatish va topshirilgan javoblarni o‘qituvchiga yetkazish uchun umumiy baza va haqiqiy akkaunt tizimi kerak.</p></main><footer class="foot">© 2026 • 10-maktab 🎓</footer><script>
-const $=id=>document.getElementById(id);let user;try{user=JSON.parse(localStorage.getItem('maktabUser'))}catch{}if(!user?.registered)location.replace('login.html');const role=user?.rol||user?.role||'',allowed=["O'qituvchi","Direktor","Zamdirektor"],isManager=allowed.includes(role);const key='maktabAssignments',author=[user?.ism||user?.firstName,user?.familiya||user?.lastName].filter(Boolean).join(' '),owner=user?.id||[author,user?.sinf||user?.className,role].join('|');let editing=null;
-function read(){try{let x=JSON.parse(localStorage.getItem(key));return Array.isArray(x)?x:[]}catch{return []}}
-if(!isManager){$('editor').remove();$('notice').textContent="⛔ Bu sahifa faqat o‘qituvchi, direktor va zamdirektor uchun."}
-else {for(let i=1;i<=11;i++){let label=document.createElement('label');label.className='class';let cb=document.createElement('input');cb.type='checkbox';cb.value=String(i);label.append(cb,document.createTextNode(i+'-sinf'));$('classes').append(label)}}
-function chosen(){return [...document.querySelectorAll('#classes input:checked')].map(x=>x.value)}
-function reset(){editing=null;for(let id of ['subject','title','description','link','deadline'])$(id).value='';$('answerType').value='text';document.querySelectorAll('#classes input').forEach(x=>x.checked=false);$('formTitle').textContent='✍️ Yangi vazifa';$('save').textContent='💾 Vazifani saqlash';$('cancel').classList.add('hidden')}
-function render(){let box=$('saved');box.replaceChildren();let mine=read().filter(a=>a.owner===owner);if(!mine.length){box.textContent='Hozircha vazifa yo‘q.';return}mine.slice().reverse().forEach(a=>{let item=document.createElement('article');item.className='item';let h=document.createElement('h3');h.textContent='📘 '+a.title;let info=document.createElement('p');info.className='muted';info.textContent=a.subject+' • '+a.classes.map(c=>c+'-sinf').join(', ')+' • '+(a.deadline?'Muddat: '+new Date(a.deadline).toLocaleString('uz-UZ'):'Muddatsiz');let desc=document.createElement('p');desc.textContent=a.description;item.append(h,info,desc);if(isManager){let actions=document.createElement('div');actions.className='actions';let edit=document.createElement('button');edit.className='secondary';edit.textContent='✏️ Tahrirlash';edit.onclick=()=>{editing=a.id;for(let id of ['subject','title','description','link','deadline'])$(id).value=a[id]||'';$('answerType').value=a.answerType||'text';document.querySelectorAll('#classes input').forEach(x=>x.checked=a.classes.includes(x.value));$('formTitle').textContent='✏️ Vazifani tahrirlash';$('save').textContent='💾 O‘zgarishlarni saqlash';$('cancel').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})};let del=document.createElement('button');del.className='danger';del.textContent='🗑️ O‘chirish';del.onclick=()=>{if(confirm('Vazifani o‘chirasizmi?')){localStorage.setItem(key,JSON.stringify(read().filter(x=>x.id!==a.id)));render()}};actions.append(edit,del);item.append(actions)}box.append(item)})}
-if(isManager){$('all').onclick=()=>document.querySelectorAll('#classes input').forEach(x=>x.checked=true);$('clear').onclick=()=>document.querySelectorAll('#classes input').forEach(x=>x.checked=false);$('cancel').onclick=reset;$('save').onclick=()=>{let subject=$('subject').value.trim(),title=$('title').value.trim(),description=$('description').value.trim(),link=$('link').value.trim(),deadline=$('deadline').value,classes=chosen();if(!subject||!title||!description||!classes.length){alert('Fan, nom, matn va kamida bitta sinfni kiriting.');return}if(link){try{let url=new URL(link);if(!['https:','http:'].includes(url.protocol))throw Error()}catch{alert('Havolani https:// bilan to‘g‘ri kiriting.');return}}let all=read(),old=all.find(x=>x.id===editing);if(editing&&(!old||old.owner!==owner)){alert('Bu vazifani tahrirlash mumkin emas.');return}let data={id:editing||'assignment-'+Date.now(),owner,author,subject,title,description,link,deadline,classes,answerType:$('answerType').value,createdAt:old?.createdAt||new Date().toISOString()};all=editing?all.map(x=>x.id===editing?data:x):[...all,data];try{localStorage.setItem(key,JSON.stringify(all));alert('Vazifa saqlandi!');reset();render()}catch{alert('Brauzer xotirasiga saqlab bo‘lmadi.')}}}render();
-</script></body></html>
+
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vazifa qo‘shish | 10-maktab</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f6ff;color:#27304e;font:15px system-ui,Arial}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+.nav{
+ background:white;position:sticky;top:0;z-index:5;
+ padding:14px max(15px,calc((100vw - 1050px)/2));
+ display:flex;align-items:center;gap:12px;
+ box-shadow:0 3px 18px #24356a15
+}
+.nav b{font-size:19px}
+.nav a:last-child{margin-left:auto;color:#5356c5}
+
+.wrap{max-width:950px;margin:25px auto;padding:0 15px 45px}
+
+.hero{
+ background:linear-gradient(115deg,#ffdf80,#ffc65c);
+ border-radius:23px;padding:24px;margin-bottom:20px
+}
+.hero h1{margin:0 0 7px;font-size:clamp(24px,4vw,33px)}
+.hero p{margin:0;color:#6c562b}
+
+.card{
+ background:white;border:1px solid #e8ebf7;
+ border-radius:20px;padding:20px;margin:15px 0;
+ box-shadow:0 8px 27px #2937710d
+}
+
+label.field{display:block;font-weight:700;margin:15px 0}
+
+.field input,.field textarea,.field select{
+ display:block;margin-top:8px;width:100%;padding:13px;
+ border:1.5px solid #dfe3f0;border-radius:12px;
+ background:#fcfcff;outline-color:#6c67e7
+}
+
+.field textarea{min-height:125px;resize:vertical}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:0 15px
+}
+
+.classes{
+ display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(90px,1fr));
+ gap:9px
+}
+
+.class{
+ display:flex;gap:7px;align-items:center;
+ padding:11px;border:1.5px solid #e2e6f4;
+ border-radius:11px;cursor:pointer
+}
+
+.class:has(input:checked){
+ background:#eeedff;border-color:#6561dd
+}
+
+.class input{accent-color:#6366e8}
+
+.actions{
+ display:flex;flex-wrap:wrap;gap:10px;margin-top:18px
+}
+
+.primary,.secondary,.danger{
+ border:0;border-radius:12px;
+ padding:13px 17px;font-weight:750
+}
+
+.primary{
+ color:white;
+ background:linear-gradient(100deg,#5c61e9,#a15be4)
+}
+
+.secondary{color:#5554c2;background:#eeefff}
+.danger{color:#c23d53;background:#fff0f1}
+.muted{font-size:13px;color:#7e879f}
+.saved{display:grid;gap:12px}
+
+.item{
+ background:#f8f8ff;border:1px solid #ebedfa;
+ border-radius:14px;padding:15px;overflow-wrap:anywhere
+}
+
+.item h3{margin:0 0 7px}
+.item .actions{margin-top:10px}
+.hidden{display:none!important}
+.error{color:#c43c50;font-weight:700}
+.foot{text-align:center;padding:22px;color:#858ba1}
+
+@media(max-width:560px){
+ .grid{grid-template-columns:1fr}
+ .card{padding:15px}
+ .hero{padding:19px}
+ .nav b{font-size:16px}
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+<a href="index.html" aria-label="Bosh sahifa">🏠</a>
+<b>🏫 10-maktab</b>
+<a href="index.html">← Asosiy</a>
+</nav>
+
+<main class="wrap">
+
+<header class="hero">
+<h1>📚 Vazifa qo‘shish</h1>
+<p>O‘quvchilarga uy vazifasini tayyorlang va kerakli sinflarga yuboring.</p>
+</header>
+
+<p id="notice" class="error" role="alert"></p>
+
+<section id="editor" class="card">
+
+<h2 id="formTitle">✍️ Yangi vazifa</h2>
+
+<div class="grid">
+
+<label class="field">
+📘 Fan
+<input id="subject" maxlength="70"
+placeholder="Masalan: Matematika">
+</label>
+
+<label class="field">
+📝 Vazifa nomi
+<input id="title" maxlength="120"
+placeholder="Masalan: 5-mavzu mashqlari">
+</label>
+
+</div>
+
+<label class="field">
+📄 Vazifa matni
+<textarea id="description" maxlength="10000"
+placeholder="O‘quvchilar bajarishi kerak bo‘lgan ishni batafsil yozing..."></textarea>
+</label>
+
+<label class="field">
+🔗 Havola (ixtiyoriy)
+<input id="link" type="url" placeholder="https://...">
+</label>
+
+<div class="grid">
+
+<label class="field">
+📅 Topshirish muddati
+<input id="deadline" type="datetime-local">
+</label>
+
+<label class="field">
+📥 Javob turi
+<select id="answerType">
+<option value="text">Matn</option>
+<option value="link">Havola</option>
+<option value="both">Matn yoki havola</option>
+</select>
+</label>
+
+</div>
+
+<h3>🎒 Qaysi sinflarga?</h3>
+
+<p class="muted">
+Bir yoki bir nechta sinfni belgilang.
+</p>
+
+<div id="classes" class="classes"></div>
+
+<div class="actions">
+
+<button id="all" class="secondary" type="button">
+☑️ Hammasini tanlash
+</button>
+
+<button id="clear" class="secondary" type="button">
+Tozalash
+</button>
+
+</div>
+
+<div class="actions">
+
+<button id="save" class="primary" type="button">
+💾 Vazifani saqlash
+</button>
+
+<button id="cancel" class="secondary hidden" type="button">
+Bekor qilish
+</button>
+
+</div>
+
+<p class="muted">
+Vazifa saqlangach, tanlangan sinf o‘quvchilari uchun mo‘ljallanadi.
+</p>
+
+</section>
+
+<section class="card">
+
+<h2>📂 Men qo‘shgan vazifalar</h2>
+
+<div id="saved" class="saved"></div>
+
+</section>
+
+<p class="muted">
+Hozirgi versiyada vazifalar shu brauzerda saqlanadi.
+Turli telefonlarga tarqatish va topshirilgan javoblarni o‘qituvchiga
+yetkazish uchun umumiy baza va haqiqiy akkaunt tizimi kerak.
+</p>
+
+</main>
+
+<footer class="foot">
+© 2026 • 10-maktab 🎓
+</footer>
+
+<script>
+
+// ======================================
+// FOYDALANUVCHI
+// ======================================
+
+const $=id=>document.getElementById(id);
+
+let user;
+
+try{
+ user=JSON.parse(localStorage.getItem("maktabUser"));
+}catch{}
+
+if(!user?.registered){
+ location.replace("login.html");
+}
+
+const role=user?.rol||user?.role||"";
+
+// TUZATILDI: BOSHQA ROLIGA HAM RUXSAT
+
+const allowed=[
+ "O'qituvchi",
+ "Direktor",
+ "Zamdirektor",
+ "Boshqa"
+];
+
+const isManager=allowed.includes(role);
+
+
+// ======================================
+// MA'LUMOTLAR
+// ======================================
+
+const key="maktabAssignments";
+
+const author=[
+ user?.ism||user?.firstName,
+ user?.familiya||user?.lastName
+].filter(Boolean).join(" ");
+
+const owner=user?.id||[
+ author,
+ user?.sinf||user?.className,
+ role
+].join("|");
+
+let editing=null;
+
+function read(){
+
+ try{
+
+  const x=JSON.parse(localStorage.getItem(key));
+
+  return Array.isArray(x)?x:[];
+
+ }catch{
+
+  return [];
+
+ }
+
+}
+
+
+// ======================================
+// RUXSATNI TEKSHIRISH
+// ======================================
+
+if(!isManager){
+
+ $("editor").remove();
+
+ $("notice").textContent=
+ "⛔ Vazifa qo‘shish uchun xodim sifatida ro‘yxatdan o‘tish kerak.";
+
+}else{
+
+ // SINFLAR
+
+ for(let i=1;i<=11;i++){
+
+  const label=document.createElement("label");
+
+  label.className="class";
+
+  const cb=document.createElement("input");
+
+  cb.type="checkbox";
+
+  cb.value=String(i);
+
+  label.append(
+   cb,
+   document.createTextNode(i+"-sinf")
+  );
+
+  $("classes").append(label);
+
+ }
+
+}
+
+
+// ======================================
+// TANLANGAN SINFLAR
+// ======================================
+
+function chosen(){
+
+ return [
+  ...document.querySelectorAll("#classes input:checked")
+ ].map(x=>x.value);
+
+}
+
+
+// ======================================
+// FORMANI TOZALASH
+// ======================================
+
+function reset(){
+
+ editing=null;
+
+ for(const id of [
+  "subject",
+  "title",
+  "description",
+  "link",
+  "deadline"
+ ]){
+
+  $(id).value="";
+
+ }
+
+ $("answerType").value="text";
+
+ document.querySelectorAll("#classes input")
+ .forEach(x=>x.checked=false);
+
+ $("formTitle").textContent="✍️ Yangi vazifa";
+
+ $("save").textContent="💾 Vazifani saqlash";
+
+ $("cancel").classList.add("hidden");
+
+}
+
+
+// ======================================
+// SAQLANGAN VAZIFALAR
+// ======================================
+
+function render(){
+
+ const box=$("saved");
+
+ box.replaceChildren();
+
+ const mine=read().filter(a=>a.owner===owner);
+
+ if(!mine.length){
+
+  box.textContent="Hozircha vazifa yo‘q.";
+
+  return;
+
+ }
+
+ mine.slice().reverse().forEach(a=>{
+
+  const item=document.createElement("article");
+
+  item.className="item";
+
+  const h=document.createElement("h3");
+
+  h.textContent="📘 "+a.title;
+
+  const info=document.createElement("p");
+
+  info.className="muted";
+
+  info.textContent=
+   a.subject+
+   " • "+
+   a.classes.map(c=>c+"-sinf").join(", ")+
+   " • "+
+   (
+    a.deadline
+     ? "Muddat: "+new Date(a.deadline).toLocaleString("uz-UZ")
+     : "Muddatsiz"
+   );
+
+  const desc=document.createElement("p");
+
+  desc.textContent=a.description;
+
+  item.append(h,info,desc);
+
+
+  // TAHRIRLASH VA O‘CHIRISH
+
+  if(isManager){
+
+   const actions=document.createElement("div");
+
+   actions.className="actions";
+
+   const edit=document.createElement("button");
+
+   edit.className="secondary";
+
+   edit.textContent="✏️ Tahrirlash";
+
+   edit.onclick=()=>{
+
+    editing=a.id;
+
+    for(const id of [
+     "subject",
+     "title",
+     "description",
+     "link",
+     "deadline"
+    ]){
+
+     $(id).value=a[id]||"";
+
+    }
+
+    $("answerType").value=a.answerType||"text";
+
+    document.querySelectorAll("#classes input")
+    .forEach(x=>{
+     x.checked=a.classes.includes(x.value);
+    });
+
+    $("formTitle").textContent="✏️ Vazifani tahrirlash";
+
+    $("save").textContent="💾 O‘zgarishlarni saqlash";
+
+    $("cancel").classList.remove("hidden");
+
+    window.scrollTo({
+     top:0,
+     behavior:"smooth"
+    });
+
+   };
+
+
+   const del=document.createElement("button");
+
+   del.className="danger";
+
+   del.textContent="🗑️ O‘chirish";
+
+   del.onclick=()=>{
+
+    if(confirm("Vazifani o‘chirasizmi?")){
+
+     localStorage.setItem(
+      key,
+      JSON.stringify(
+       read().filter(x=>x.id!==a.id)
+      )
+     );
+
+     render();
+
+    }
+
+   };
+
+   actions.append(edit,del);
+
+   item.append(actions);
+
+  }
+
+  box.append(item);
+
+ });
+
+}
+
+
+// ======================================
+// VAZIFA QO‘SHISH VA SAQLASH
+// ======================================
+
+if(isManager){
+
+ $("all").onclick=()=>{
+
+  document.querySelectorAll("#classes input")
+  .forEach(x=>x.checked=true);
+
+ };
+
+ $("clear").onclick=()=>{
+
+  document.querySelectorAll("#classes input")
+  .forEach(x=>x.checked=false);
+
+ };
+
+ $("cancel").onclick=reset;
+
+
+ $("save").onclick=()=>{
+
+  const subject=$("subject").value.trim();
+
+  const title=$("title").value.trim();
+
+  const description=$("description").value.trim();
+
+  const link=$("link").value.trim();
+
+  const deadline=$("deadline").value;
+
+  const classes=chosen();
+
+
+  if(
+   !subject||
+   !title||
+   !description||
+   !classes.length
+  ){
+
+   alert(
+    "Fan, nom, matn va kamida bitta sinfni kiriting."
+   );
+
+   return;
+
+  }
+
+
+  // HAVOLANI TEKSHIRISH
+
+  if(link){
+
+   try{
+
+    const url=new URL(link);
+
+    if(!["https:","http:"].includes(url.protocol)){
+     throw Error();
+    }
+
+   }catch{
+
+    alert("Havolani https:// bilan to‘g‘ri kiriting.");
+
+    return;
+
+   }
+
+  }
+
+
+  let all=read();
+
+  const old=all.find(x=>x.id===editing);
+
+
+  if(editing&&(!old||old.owner!==owner)){
+
+   alert("Bu vazifani tahrirlash mumkin emas.");
+
+   return;
+
+  }
+
+
+  const data={
+
+   id:editing||"assignment-"+Date.now(),
+
+   owner,
+
+   author,
+
+   subject,
+
+   title,
+
+   description,
+
+   link,
+
+   deadline,
+
+   classes,
+
+   answerType:$("answerType").value,
+
+   createdAt:old?.createdAt||new Date().toISOString()
+
+  };
+
+
+  if(editing){
+
+   all=all.map(x=>x.id===editing?data:x);
+
+  }else{
+
+   all=[...all,data];
+
+  }
+
+
+  try{
+
+   localStorage.setItem(
+    key,
+    JSON.stringify(all)
+   );
+
+   alert("Vazifa saqlandi!");
+
+   reset();
+
+   render();
+
+  }catch{
+
+   alert("Brauzer xotirasiga saqlab bo‘lmadi.");
+
+  }
+
+ };
+
+}
+
+
+// ======================================
+// ISHGA TUSHIRISH
+// ======================================
+
+render();
+
+</script>
+
+</body>
+</html>

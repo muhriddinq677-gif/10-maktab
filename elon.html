@@ -1,18 +1,1175 @@
-<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>E'lonlar | 10-maktab</title><style>
-*{box-sizing:border-box}body{margin:0;background:#f5f6ff;color:#263153;font:15px system-ui,Arial;min-height:100vh;display:flex;flex-direction:column}button,input,textarea{font:inherit}button{cursor:pointer;border:0}a{text-decoration:none;color:inherit}.nav{position:sticky;top:0;z-index:5;background:white;box-shadow:0 5px 25px #29366b12;padding:12px max(14px,calc((100vw - 1160px)/2));display:flex;align-items:center;gap:12px}.logo{font-size:20px;font-weight:850;display:flex;align-items:center;gap:8px}.logo img{width:37px;height:37px;object-fit:contain}.push{margin-left:auto}.icon{width:42px;height:42px;background:#edf0ff;border-radius:13px;color:#3d50bd;font-size:22px}.wrap{width:min(1100px,100%);margin:auto;padding:24px 16px;flex:1}.hero{border-radius:24px;background:linear-gradient(110deg,#ffe382,#ffc45c);padding:25px;display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px}.hero h1{margin:0 0 6px;font-size:clamp(23px,4vw,33px)}.hero p{margin:0;color:#6c572b}.action{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px}.search{flex:1;min-width:180px;padding:14px;border:1px solid #dfe4f3;border-radius:14px;background:#fff;outline-color:#6767ef}.primary{background:linear-gradient(100deg,#585fe8,#9b5eea);color:white;border-radius:14px;padding:14px 17px;font-weight:750}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:17px}.card{background:white;border:1px solid #e8ebf7;border-radius:20px;padding:18px;box-shadow:0 10px 28px #2b3a7410;min-width:0}.meta{color:#7d86a0;font-size:12px;display:flex;gap:8px;flex-wrap:wrap}.card h2{font-size:20px;margin:12px 0}.bodytext{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6}.media{width:100%;max-height:330px;object-fit:contain;background:#f4f5fa;border-radius:13px;margin-top:12px}.link{display:block;color:#454bdb;overflow-wrap:anywhere;margin-top:12px}.tools{display:flex;gap:8px;margin-top:15px}.small{padding:9px 12px;border-radius:10px;background:#eff1ff;color:#414bbb}.danger{background:#ffedf0;color:#c52d4b}.empty{text-align:center;padding:48px 16px;color:#7d86a0;background:white;border:2px dashed #e2e5f4;border-radius:18px}.shade{position:fixed;inset:0;background:#111b4d83;z-index:9;display:none}.shade.on{display:block}.drawer{position:fixed;top:0;bottom:0;left:0;z-index:10;width:min(310px,88vw);background:linear-gradient(160deg,#426beb,#223caa);padding:20px;color:white;transform:translateX(-105%);transition:.22s;overflow:auto}.drawer.on{transform:translateX(0)}.drawer a{display:block;padding:15px;background:#ffffff19;border-radius:12px;margin:8px 0;font-weight:650}.drawer a.active{background:#ffffff45}.drawerhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.close{background:#ffffff30;color:white;border-radius:10px;padding:9px 13px}.modal{position:fixed;inset:0;z-index:12;background:#141b4380;display:none;align-items:center;justify-content:center;padding:12px}.modal.on{display:flex}.dialog{width:min(550px,100%);max-height:94dvh;overflow:auto;background:white;border-radius:23px;padding:22px}.dialoghead{display:flex;align-items:center;justify-content:space-between}.dialog h2{margin:0 0 15px}.field{display:grid;gap:7px;margin:13px 0;font-weight:650}.field input,.field textarea{width:100%;border:1px solid #dce1f0;border-radius:12px;padding:13px;outline-color:#6366f1;font-weight:400}.field textarea{min-height:120px;resize:vertical}.upload{display:grid;grid-template-columns:1fr 1fr;gap:9px}.upload label{border:2px dashed #dce1f3;border-radius:13px;padding:12px;cursor:pointer;background:#f8f8ff;font-size:13px}.upload input{width:100%;max-width:100%;margin-top:8px}.hint{font-size:12px;color:#77809a}.err{color:#c3324d;font-size:13px;min-height:18px}.footer{background:#fff;border-top:1px solid #e5e9f5;padding:19px;text-align:center;color:#7b849d;font-size:13px}@media(max-width:420px){.nav{gap:8px}.logo{font-size:16px}.logo img{width:30px;height:30px}.hero{padding:18px}.dialog{padding:17px}.upload{grid-template-columns:1fr}}
-</style></head><body>
-<div id="shade" class="shade"></div><aside class="drawer" id="drawer"><div class="drawerhead"><b>🏫 10-maktab</b><button class="close" id="closeDrawer">✕</button></div><a href="index.html">🏠 Asosiy</a><a class="active" href="elon.html">📢 E'lonlar</a><a href="test.html">📝 Test yechish</a><a class="manager" href="test-qoshish.html">➕ Test qo‘shish</a><a class="manager" href="vazifa-qoshish.html">📚 Vazifa qo‘yish</a><a href="natijalar.html">🏆 Natijalarim</a><a class="manager" href="topshiriqlar.html">📥 Topshirilgan ishlar</a></aside>
-<nav class="nav"><button class="icon" id="menu" aria-label="Menyuni ochish">☰</button><a class="logo" href="index.html"><img src="logo.png" alt="" onerror="this.style.display='none'">10-maktab</a><span class="push"></span><a class="icon" href="index.html" aria-label="Asosiy sahifa" style="display:grid;place-items:center">🏠</a></nav>
-<main class="wrap"><header class="hero"><div><h1>📢 E'lonlar</h1><p>Maktabimizdagi so‘nggi xabarlar va yangiliklar</p></div><span style="font-size:43px">📣</span></header><section class="action"><input class="search" id="search" type="search" placeholder="🔎 E'lonlarni qidirish..." aria-label="E'lonlarni qidirish"><button class="primary manager" id="add">＋ E'lon qo‘shish</button></section><div id="feed" class="cards"></div><p class="hint" style="margin-top:20px">Hozirgi namuna e'lonlarni faqat shu brauzerda saqlaydi. Boshqa foydalanuvchilarga uzatish uchun umumiy server bazasi ulanadi.</p></main><footer class="footer">© 2026 10-maktab • Bilim sari birga! 🎓</footer>
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="formTitle"><form class="dialog" id="form"><div class="dialoghead"><h2 id="formTitle">➕ Yangi e'lon</h2><button type="button" class="icon" id="closeModal" aria-label="Yopish">✕</button></div><label class="field">Sarlavha <input id="title" maxlength="100" required placeholder="E'lon sarlavhasi"></label><label class="field">Matn (ixtiyoriy)<textarea id="message" maxlength="5000" placeholder="E'lon haqida yozing..."></textarea></label><label class="field">🔗 Havola (ixtiyoriy)<input id="url" type="url" placeholder="https://..."></label><div class="upload"><label>🖼️ Rasm (ixtiyoriy)<input id="photo" type="file" accept="image/*"></label><label>🎬 Video (ixtiyoriy)<input id="video" type="file" accept="video/*"></label></div><p class="hint">Rasm va video uchun galereyadan fayl tanlang. Ushbu brauzer namunasida video hajmi cheklangan; katta videolar uchun keyin server xotirasi ulanadi.</p><p class="err" id="error"></p><button class="primary" type="submit" style="width:100%">📤 E'lonni saqlash</button></form></div>
+
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>E'lonlar | 10-maktab</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ background:#f5f6ff;
+ color:#263153;
+ font:15px system-ui,Arial;
+ min-height:100vh;
+ display:flex;
+ flex-direction:column
+}
+
+button,input,textarea{font:inherit}
+button{cursor:pointer;border:0}
+a{text-decoration:none;color:inherit}
+
+.nav{
+ position:sticky;
+ top:0;
+ z-index:5;
+ background:white;
+ box-shadow:0 5px 25px #29366b12;
+ padding:12px max(14px,calc((100vw - 1160px)/2));
+ display:flex;
+ align-items:center;
+ gap:12px
+}
+
+.logo{
+ font-size:20px;
+ font-weight:850;
+ display:flex;
+ align-items:center;
+ gap:8px
+}
+
+.logo img{
+ width:37px;
+ height:37px;
+ object-fit:contain
+}
+
+.push{margin-left:auto}
+
+.icon{
+ width:42px;
+ height:42px;
+ background:#edf0ff;
+ border-radius:13px;
+ color:#3d50bd;
+ font-size:22px
+}
+
+.wrap{
+ width:min(1100px,100%);
+ margin:auto;
+ padding:24px 16px;
+ flex:1
+}
+
+.hero{
+ border-radius:24px;
+ background:linear-gradient(110deg,#ffe382,#ffc45c);
+ padding:25px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:15px;
+ margin-bottom:20px
+}
+
+.hero h1{
+ margin:0 0 6px;
+ font-size:clamp(23px,4vw,33px)
+}
+
+.hero p{margin:0;color:#6c572b}
+
+.action{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-bottom:20px
+}
+
+.search{
+ flex:1;
+ min-width:180px;
+ padding:14px;
+ border:1px solid #dfe4f3;
+ border-radius:14px;
+ background:#fff;
+ outline-color:#6767ef
+}
+
+.primary{
+ background:linear-gradient(100deg,#585fe8,#9b5eea);
+ color:white;
+ border-radius:14px;
+ padding:14px 17px;
+ font-weight:750
+}
+
+.cards{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));
+ gap:17px
+}
+
+.card{
+ background:white;
+ border:1px solid #e8ebf7;
+ border-radius:20px;
+ padding:18px;
+ box-shadow:0 10px 28px #2b3a7410;
+ min-width:0
+}
+
+.meta{
+ color:#7d86a0;
+ font-size:12px;
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap
+}
+
+.card h2{font-size:20px;margin:12px 0}
+
+.bodytext{
+ white-space:pre-wrap;
+ overflow-wrap:anywhere;
+ line-height:1.6
+}
+
+.media{
+ width:100%;
+ max-height:330px;
+ object-fit:contain;
+ background:#f4f5fa;
+ border-radius:13px;
+ margin-top:12px
+}
+
+.link{
+ display:block;
+ color:#454bdb;
+ overflow-wrap:anywhere;
+ margin-top:12px
+}
+
+.tools{
+ display:flex;
+ gap:8px;
+ margin-top:15px
+}
+
+.small{
+ padding:9px 12px;
+ border-radius:10px;
+ background:#eff1ff;
+ color:#414bbb
+}
+
+.danger{
+ background:#ffedf0;
+ color:#c52d4b
+}
+
+.empty{
+ text-align:center;
+ padding:48px 16px;
+ color:#7d86a0;
+ background:white;
+ border:2px dashed #e2e5f4;
+ border-radius:18px
+}
+
+.shade{
+ position:fixed;
+ inset:0;
+ background:#111b4d83;
+ z-index:9;
+ display:none
+}
+
+.shade.on{display:block}
+
+.drawer{
+ position:fixed;
+ top:0;
+ bottom:0;
+ left:0;
+ z-index:10;
+ width:min(310px,88vw);
+ background:linear-gradient(160deg,#426beb,#223caa);
+ padding:20px;
+ color:white;
+ transform:translateX(-105%);
+ transition:.22s;
+ overflow:auto
+}
+
+.drawer.on{transform:translateX(0)}
+
+.drawer a{
+ display:block;
+ padding:15px;
+ background:#ffffff19;
+ border-radius:12px;
+ margin:8px 0;
+ font-weight:650
+}
+
+.drawer a.active{background:#ffffff45}
+
+.drawerhead{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:22px
+}
+
+.close{
+ background:#ffffff30;
+ color:white;
+ border-radius:10px;
+ padding:9px 13px
+}
+
+.modal{
+ position:fixed;
+ inset:0;
+ z-index:12;
+ background:#141b4380;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ padding:12px
+}
+
+.modal.on{display:flex}
+
+.dialog{
+ width:min(550px,100%);
+ max-height:94dvh;
+ overflow:auto;
+ background:white;
+ border-radius:23px;
+ padding:22px
+}
+
+.dialoghead{
+ display:flex;
+ align-items:center;
+ justify-content:space-between
+}
+
+.dialog h2{margin:0 0 15px}
+
+.field{
+ display:grid;
+ gap:7px;
+ margin:13px 0;
+ font-weight:650
+}
+
+.field input,.field textarea{
+ width:100%;
+ border:1px solid #dce1f0;
+ border-radius:12px;
+ padding:13px;
+ outline-color:#6366f1;
+ font-weight:400
+}
+
+.field textarea{
+ min-height:120px;
+ resize:vertical
+}
+
+.upload{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:9px
+}
+
+.upload label{
+ border:2px dashed #dce1f3;
+ border-radius:13px;
+ padding:12px;
+ cursor:pointer;
+ background:#f8f8ff;
+ font-size:13px
+}
+
+.upload input{
+ width:100%;
+ max-width:100%;
+ margin-top:8px
+}
+
+.hint{font-size:12px;color:#77809a}
+
+.err{
+ color:#c3324d;
+ font-size:13px;
+ min-height:18px
+}
+
+.footer{
+ background:#fff;
+ border-top:1px solid #e5e9f5;
+ padding:19px;
+ text-align:center;
+ color:#7b849d;
+ font-size:13px
+}
+
+@media(max-width:420px){
+ .nav{gap:8px}
+ .logo{font-size:16px}
+ .logo img{width:30px;height:30px}
+ .hero{padding:18px}
+ .dialog{padding:17px}
+ .upload{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div id="shade" class="shade"></div>
+
+<aside class="drawer" id="drawer">
+
+<div class="drawerhead">
+<b>🏫 10-maktab</b>
+<button class="close" id="closeDrawer">✕</button>
+</div>
+
+<a href="index.html">🏠 Asosiy</a>
+
+<a class="active" href="elon.html">📢 E'lonlar</a>
+
+<a href="test.html">📝 Test yechish</a>
+
+<a class="manager" href="test-qoshish.html">
+➕ Test qo‘shish
+</a>
+
+<a class="manager" href="vazifa-qoshish.html">
+📚 Vazifa qo‘yish
+</a>
+
+<a href="natijalar.html">🏆 Natijalarim</a>
+
+<a class="manager" href="topshiriqlar.html">
+📥 Topshirilgan ishlar
+</a>
+
+</aside>
+
+<nav class="nav">
+
+<button class="icon" id="menu" aria-label="Menyuni ochish">
+☰
+</button>
+
+<a class="logo" href="index.html">
+
+<img src="logo.png" alt=""
+onerror="this.style.display='none'">
+
+10-maktab
+
+</a>
+
+<span class="push"></span>
+
+<a class="icon" href="index.html"
+aria-label="Asosiy sahifa"
+style="display:grid;place-items:center">
+🏠
+</a>
+
+</nav>
+
+<main class="wrap">
+
+<header class="hero">
+
+<div>
+<h1>📢 E'lonlar</h1>
+<p>Maktabimizdagi so‘nggi xabarlar va yangiliklar</p>
+</div>
+
+<span style="font-size:43px">📣</span>
+
+</header>
+
+<section class="action">
+
+<input
+ class="search"
+ id="search"
+ type="search"
+ placeholder="🔎 E'lonlarni qidirish..."
+ aria-label="E'lonlarni qidirish"
+>
+
+<button class="primary manager" id="add">
+＋ E'lon qo‘shish
+</button>
+
+</section>
+
+<div id="feed" class="cards"></div>
+
+<p class="hint" style="margin-top:20px">
+Hozirgi namuna e'lonlarni faqat shu brauzerda saqlaydi.
+Boshqa foydalanuvchilarga uzatish uchun umumiy server bazasi ulanadi.
+</p>
+
+</main>
+
+<footer class="footer">
+© 2026 10-maktab • Bilim sari birga! 🎓
+</footer>
+
+<!-- E'LON QO‘SHISH OYNASI -->
+
+<div class="modal" id="modal"
+role="dialog"
+aria-modal="true"
+aria-labelledby="formTitle">
+
+<form class="dialog" id="form">
+
+<div class="dialoghead">
+
+<h2 id="formTitle">➕ Yangi e'lon</h2>
+
+<button type="button"
+class="icon"
+id="closeModal"
+aria-label="Yopish">
+✕
+</button>
+
+</div>
+
+<label class="field">
+
+Sarlavha
+
+<input
+ id="title"
+ maxlength="100"
+ required
+ placeholder="E'lon sarlavhasi"
+>
+
+</label>
+
+<label class="field">
+
+Matn (ixtiyoriy)
+
+<textarea
+ id="message"
+ maxlength="5000"
+ placeholder="E'lon haqida yozing..."
+></textarea>
+
+</label>
+
+<label class="field">
+
+🔗 Havola (ixtiyoriy)
+
+<input
+ id="url"
+ type="url"
+ placeholder="https://..."
+>
+
+</label>
+
+<div class="upload">
+
+<label>
+🖼️ Rasm (ixtiyoriy)
+
+<input
+ id="photo"
+ type="file"
+ accept="image/*"
+>
+</label>
+
+<label>
+🎬 Video (ixtiyoriy)
+
+<input
+ id="video"
+ type="file"
+ accept="video/*"
+>
+</label>
+
+</div>
+
+<p class="hint">
+Rasm va video uchun galereyadan fayl tanlang.
+Ushbu brauzer namunasida video hajmi cheklangan;
+katta videolar uchun keyin server xotirasi ulanadi.
+</p>
+
+<p class="err" id="error"></p>
+
+<button
+ class="primary"
+ type="submit"
+ style="width:100%"
+>
+📤 E'lonni saqlash
+</button>
+
+</form>
+</div>
+
 <script>
-let user;try{user=JSON.parse(localStorage.getItem('maktabUser'))}catch{}if(!user?.registered)location.replace('login.html');
-const role=user?.role||user?.rol||'';const manager=["O'qituvchi",'Direktor','Zamdirektor'].includes(role);if(!manager)document.querySelectorAll('.manager').forEach(el=>el.remove());
-const $=id=>document.getElementById(id),shade=$('shade'),drawer=$('drawer'),modal=$('modal');$('menu').onclick=()=>{drawer.classList.add('on');shade.classList.add('on')};function closeDrawer(){drawer.classList.remove('on');shade.classList.remove('on')}$('closeDrawer').onclick=shade.onclick=closeDrawer;function closeModal(){modal.classList.remove('on');$('form').reset();$('error').textContent='';editing=null}$('closeModal').onclick=closeModal;modal.onclick=e=>{if(e.target===modal)closeModal()};document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();closeModal()}});
-const key='maktabElonlarDemo';let posts=[];try{posts=JSON.parse(localStorage.getItem(key))||[]}catch{}let editing=null;const author=[user?.firstName||user?.ism,user?.lastName||user?.familiya].filter(Boolean).join(' ');function save(){try{localStorage.setItem(key,JSON.stringify(posts));return true}catch(e){$('error').textContent='Xotira to‘ldi. Kichikroq rasm tanlang yoki videoni havola orqali joylang.';return false}}
-function el(tag,cls,txt){let x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}function render(){let feed=$('feed');feed.replaceChildren();let q=$('search').value.trim().toLowerCase(),filtered=posts.filter(p=>(p.title+' '+p.message+' '+p.author).toLowerCase().includes(q)).sort((a,b)=>b.created-a.created);if(!filtered.length){feed.append(el('div','empty',q?'🔎 Hech narsa topilmadi.':'📭 Hozircha e’lonlar yo‘q.'));return}filtered.forEach(p=>{let card=el('article','card'),meta=el('div','meta');meta.append(el('span','', '👤 '+p.author+' • '+p.role),el('span','', '📅 '+new Date(p.created).toLocaleString('uz-UZ')));card.append(meta,el('h2','',p.title));if(p.message)card.append(el('p','bodytext',p.message));if(p.photo){let img=el('img','media');img.src=p.photo;img.alt='E’lon rasmi';img.loading='lazy';card.append(img)}if(p.video){let vid=el('video','media');vid.src=p.video;vid.controls=true;vid.preload='metadata';card.append(vid)}if(p.url){let a=el('a','link','🔗 '+p.url);a.href=p.url;a.target='_blank';a.rel='noopener noreferrer';card.append(a)}if(manager&&p.owner===owner){let tools=el('div','tools'),edit=el('button','small','✏️ Tahrirlash'),del=el('button','small danger','🗑️ O‘chirish');edit.onclick=()=>openForm(p);del.onclick=()=>{if(confirm('E’lon o‘chirilsinmi?')){posts=posts.filter(x=>x.id!==p.id);save();render()}};tools.append(edit,del);card.append(tools)}feed.append(card)})}
-// Demo muallif identifikatori shu brauzer profiliga bog‘langan; haqiqiy ruxsat serverda tekshirilishi kerak.
-const owner=[author,role,user?.className||user?.sinf].join('|');$('search').oninput=render;if(manager){$('add').onclick=()=>openForm();}function openForm(p){editing=p?.id||null;$('form').reset();$('title').value=p?.title||'';$('message').value=p?.message||'';$('url').value=p?.url||'';$('formTitle').textContent=p?'✏️ E’lonni tahrirlash':'➕ Yangi e’lon';$('error').textContent='';modal.classList.add('on')}
-function fileData(file,maxMB){return new Promise((resolve,reject)=>{if(!file)return resolve(null);if(file.size>maxMB*1024*1024)return reject(new Error('Fayl juda katta (maksimum '+maxMB+' MB).'));let r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=()=>reject(new Error('Fayl o‘qilmadi'));r.readAsDataURL(file)})}
-$('form').onsubmit=async e=>{e.preventDefault();if(!manager)return;let title=$('title').value.trim(),message=$('message').value.trim(),url=$('url').value.trim();if(!title||(!message&&!url&&!$('photo').files[0]&&!$('video').files[0]&&!editing)){$('error').textContent='Sarlavha va kamida bitta kontent kiriting.';return}try{let old=posts.find(x=>x.id===editing),photo=await fileData($('photo').files[0],1.5),video=await fileData($('video').files[0],2);let p={id:old?.id||String(Date.now())+'-'+Math.random().toString(36).slice(2),title,message,url,photo:photo||old?.photo||'',video:video||old?.video||'',created:old?.created||Date.now(),author:old?.author||author,role:old?.role||role,owner:old?.owner||owner};let previous=posts.slice();posts=old?posts.map(x=>x.id===old.id?p:x):[p,...posts];if(!save()){posts=previous;return}closeModal();render()}catch(err){$('error').textContent=err.message}};render();
-</script></body></html>
+
+// ========================================
+// FOYDALANUVCHINI TEKSHIRISH
+// ========================================
+
+let user;
+
+try {
+    user = JSON.parse(
+        localStorage.getItem("maktabUser")
+    );
+} catch {}
+
+if (!user?.registered) {
+    location.replace("login.html");
+}
+
+// TUZATILDI:
+// BOSHQA ROLI HAM BOSHQARUVCHI HISOBLANADI
+
+const role = user?.role || user?.rol || "";
+
+const manager = [
+    "O'qituvchi",
+    "Direktor",
+    "Zamdirektor",
+    "Boshqa"
+].includes(role);
+
+// FAQAT O‘QUVCHIGA QO‘SHISH TUGMALARI KO‘RINMAYDI
+
+if (!manager) {
+
+    document.querySelectorAll(".manager")
+        .forEach(element => element.remove());
+
+}
+
+
+// ========================================
+// ELEMENTLAR
+// ========================================
+
+const $ = id => document.getElementById(id);
+
+const shade = $("shade");
+
+const drawer = $("drawer");
+
+const modal = $("modal");
+
+
+// ========================================
+// HAMBURGER MENYU
+// ========================================
+
+$("menu").onclick = () => {
+
+    drawer.classList.add("on");
+
+    shade.classList.add("on");
+
+};
+
+function closeDrawer() {
+
+    drawer.classList.remove("on");
+
+    shade.classList.remove("on");
+
+}
+
+$("closeDrawer").onclick = closeDrawer;
+
+shade.onclick = closeDrawer;
+
+
+// ========================================
+// E'LON OYNASINI YOPISH
+// ========================================
+
+let editing = null;
+
+function closeModal() {
+
+    modal.classList.remove("on");
+
+    $("form").reset();
+
+    $("error").textContent = "";
+
+    editing = null;
+
+}
+
+$("closeModal").onclick = closeModal;
+
+modal.onclick = event => {
+
+    if (event.target === modal) {
+        closeModal();
+    }
+
+};
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+
+        closeDrawer();
+
+        closeModal();
+
+    }
+
+});
+
+
+// ========================================
+// MA'LUMOTLARNI O‘QISH
+// ========================================
+
+const key = "maktabElonlarDemo";
+
+let posts = [];
+
+try {
+
+    const saved = JSON.parse(
+        localStorage.getItem(key)
+    );
+
+    posts = Array.isArray(saved) ? saved : [];
+
+} catch {}
+
+const author = [
+
+    user?.firstName || user?.ism,
+
+    user?.lastName || user?.familiya
+
+].filter(Boolean).join(" ");
+
+
+// MUALLIF IDENTIFIKATORI
+
+const owner = [
+
+    author,
+
+    role,
+
+    user?.className || user?.sinf
+
+].join("|");
+
+
+// ========================================
+// SAQLASH
+// ========================================
+
+function save() {
+
+    try {
+
+        localStorage.setItem(
+            key,
+            JSON.stringify(posts)
+        );
+
+        return true;
+
+    } catch (error) {
+
+        $("error").textContent =
+            "Xotira to‘ldi. Kichikroq rasm tanlang yoki videoni havola orqali joylang.";
+
+        return false;
+
+    }
+
+}
+
+
+// ========================================
+// ELEMENT YARATISH
+// ========================================
+
+function el(tag, cls, txt) {
+
+    const element = document.createElement(tag);
+
+    if (cls) {
+        element.className = cls;
+    }
+
+    if (txt !== undefined) {
+        element.textContent = txt;
+    }
+
+    return element;
+
+}
+
+
+// ========================================
+// E'LONLARNI KO‘RSATISH
+// ========================================
+
+function render() {
+
+    const feed = $("feed");
+
+    feed.replaceChildren();
+
+    const q = $("search").value.trim().toLowerCase();
+
+    const filtered = posts.filter(post => {
+
+        return (
+            post.title + " " +
+            post.message + " " +
+            post.author
+        ).toLowerCase().includes(q);
+
+    }).sort((a, b) => b.created - a.created);
+
+
+    if (!filtered.length) {
+
+        feed.append(
+
+            el(
+                "div",
+                "empty",
+                q
+                    ? "🔎 Hech narsa topilmadi."
+                    : "📭 Hozircha e’lonlar yo‘q."
+            )
+
+        );
+
+        return;
+
+    }
+
+
+    filtered.forEach(post => {
+
+        const card = el("article", "card");
+
+        const meta = el("div", "meta");
+
+        meta.append(
+
+            el(
+                "span",
+                "",
+                "👤 " + post.author + " • " + post.role
+            ),
+
+            el(
+                "span",
+                "",
+                "📅 " + new Date(post.created)
+                    .toLocaleString("uz-UZ")
+            )
+
+        );
+
+        card.append(
+            meta,
+            el("h2", "", post.title)
+        );
+
+
+        // MATN
+
+        if (post.message) {
+
+            card.append(
+                el("p", "bodytext", post.message)
+            );
+
+        }
+
+
+        // RASM
+
+        if (post.photo) {
+
+            const img = el("img", "media");
+
+            img.src = post.photo;
+
+            img.alt = "E’lon rasmi";
+
+            img.loading = "lazy";
+
+            card.append(img);
+
+        }
+
+
+        // VIDEO
+
+        if (post.video) {
+
+            const video = el("video", "media");
+
+            video.src = post.video;
+
+            video.controls = true;
+
+            video.preload = "metadata";
+
+            card.append(video);
+
+        }
+
+
+        // HAVOLA
+
+        if (post.url) {
+
+            const link = el(
+                "a",
+                "link",
+                "🔗 " + post.url
+            );
+
+            link.href = post.url;
+
+            link.target = "_blank";
+
+            link.rel = "noopener noreferrer";
+
+            card.append(link);
+
+        }
+
+
+        // O‘Z E'LONINI TAHRIRLASH VA O‘CHIRISH
+
+        if (manager && post.owner === owner) {
+
+            const tools = el("div", "tools");
+
+            const edit = el(
+                "button",
+                "small",
+                "✏️ Tahrirlash"
+            );
+
+            const del = el(
+                "button",
+                "small danger",
+                "🗑️ O‘chirish"
+            );
+
+            edit.onclick = () => openForm(post);
+
+            del.onclick = () => {
+
+                if (confirm("E’lon o‘chirilsinmi?")) {
+
+                    posts = posts.filter(
+                        item => item.id !== post.id
+                    );
+
+                    save();
+
+                    render();
+
+                }
+
+            };
+
+            tools.append(edit, del);
+
+            card.append(tools);
+
+        }
+
+        feed.append(card);
+
+    });
+
+}
+
+
+// ========================================
+// QIDIRISH
+// ========================================
+
+$("search").oninput = render;
+
+
+// ========================================
+// E'LON QO‘SHISH
+// ========================================
+
+if (manager) {
+
+    $("add").onclick = () => openForm();
+
+}
+
+
+// ========================================
+// E'LON FORMASINI OCHISH
+// ========================================
+
+function openForm(post) {
+
+    if (!manager) return;
+
+    // BOSHQA ODAMNING E'LONINI TAHRIRLASH MUMKIN EMAS
+
+    if (post && post.owner !== owner) return;
+
+    editing = post?.id || null;
+
+    $("form").reset();
+
+    $("title").value = post?.title || "";
+
+    $("message").value = post?.message || "";
+
+    $("url").value = post?.url || "";
+
+    $("formTitle").textContent = post
+        ? "✏️ E’lonni tahrirlash"
+        : "➕ Yangi e’lon";
+
+    $("error").textContent = "";
+
+    modal.classList.add("on");
+
+}
+
+
+// ========================================
+// RASM VA VIDEONI O‘QISH
+// ========================================
+
+function fileData(file, maxMB) {
+
+    return new Promise((resolve, reject) => {
+
+        if (!file) {
+
+            resolve(null);
+
+            return;
+
+        }
+
+        if (file.size > maxMB * 1024 * 1024) {
+
+            reject(
+                new Error(
+                    "Fayl juda katta (maksimum " +
+                    maxMB +
+                    " MB)."
+                )
+            );
+
+            return;
+
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = () => resolve(reader.result);
+
+        reader.onerror = () => reject(
+            new Error("Fayl o‘qilmadi.")
+        );
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+
+// ========================================
+// E'LONNI SAQLASH
+// ========================================
+
+$("form").onsubmit = async event => {
+
+    event.preventDefault();
+
+    // FAQAT RUXSAT BERILGAN ROLLAR
+
+    if (!manager) return;
+
+    const title = $("title").value.trim();
+
+    const message = $("message").value.trim();
+
+    const url = $("url").value.trim();
+
+
+    if (
+        !title ||
+        (
+            !message &&
+            !url &&
+            !$("photo").files[0] &&
+            !$("video").files[0] &&
+            !editing
+        )
+    ) {
+
+        $("error").textContent =
+            "Sarlavha va kamida bitta kontent kiriting.";
+
+        return;
+
+    }
+
+
+    try {
+
+        const old = posts.find(
+            post => post.id === editing
+        );
+
+        // TAHRIRLASHDA MUALLIFNI TEKSHIRISH
+
+        if (old && old.owner !== owner) {
+
+            $("error").textContent =
+                "Bu e’lonni tahrirlashga ruxsat yo‘q.";
+
+            return;
+
+        }
+
+
+        const photo = await fileData(
+            $("photo").files[0],
+            1.5
+        );
+
+        const video = await fileData(
+            $("video").files[0],
+            2
+        );
+
+
+        const post = {
+
+            id: old?.id ||
+                String(Date.now()) +
+                "-" +
+                Math.random().toString(36).slice(2),
+
+            title,
+
+            message,
+
+            url,
+
+            photo: photo || old?.photo || "",
+
+            video: video || old?.video || "",
+
+            created: old?.created || Date.now(),
+
+            author: old?.author || author,
+
+            role: old?.role || role,
+
+            owner: old?.owner || owner
+
+        };
+
+
+        const previous = posts.slice();
+
+
+        if (old) {
+
+            posts = posts.map(item =>
+                item.id === old.id ? post : item
+            );
+
+        } else {
+
+            posts = [post, ...posts];
+
+        }
+
+
+        if (!save()) {
+
+            posts = previous;
+
+            return;
+
+        }
+
+
+        closeModal();
+
+        render();
+
+
+    } catch (error) {
+
+        $("error").textContent = error.message;
+
+    }
+
+};
+
+
+// ========================================
+// SAHIFANI ISHGA TUSHIRISH
+// ========================================
+
+render();
+
+</script>
+
+</body>
+</html>
