@@ -1,0 +1,555 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qo‘ng‘iroqlar jadvali | 10-maktab</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:#f5f6ff;
+ color:#253153;
+ font:15px system-ui,Arial;
+ min-height:100vh;
+}
+a{text-decoration:none;color:inherit}
+button{font:inherit;cursor:pointer;border:0}
+
+header{
+ background:white;
+ padding:14px 18px;
+ display:flex;
+ align-items:center;
+ gap:13px;
+ box-shadow:0 4px 20px #303b7912;
+ position:sticky;
+ top:0;
+ z-index:10;
+}
+.back{
+ width:43px;height:43px;
+ background:#eef1ff;
+ color:#344baf;
+ border-radius:13px;
+ display:grid;
+ place-items:center;
+ font-size:23px;
+}
+.logo{font-size:20px;font-weight:800}
+main{max-width:850px;margin:auto;padding:20px 15px 35px}
+.hero{
+ background:linear-gradient(110deg,#ffdf70,#ffc45a);
+ border-radius:23px;
+ padding:25px;
+ margin-bottom:20px;
+}
+.hero h1{margin:0;font-size:27px}
+.hero p{margin:8px 0 0;color:#715824}
+
+.clock-card{
+ background:linear-gradient(135deg,#426beb,#6957cf);
+ color:white;
+ border-radius:23px;
+ padding:25px 18px;
+ text-align:center;
+ box-shadow:0 12px 30px #4258b42b;
+}
+.clock{
+ font-size:clamp(40px,9vw,65px);
+ font-weight:850;
+ letter-spacing:2px;
+ font-variant-numeric:tabular-nums;
+ margin:8px 0;
+}
+.date{color:#e0e7ff}
+.status{
+ display:inline-block;
+ background:#ffffff25;
+ padding:11px 18px;
+ border-radius:13px;
+ font-size:18px;
+ font-weight:750;
+ margin:15px 0 8px;
+}
+.countdown{
+ color:#e5e9ff;
+ margin-top:8px;
+ font-variant-numeric:tabular-nums;
+}
+
+/* SMENALAR */
+.shift-tabs{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
+ margin-top:20px;
+}
+.shift-btn{
+ background:white;
+ border:2px solid #e4e8f8;
+ padding:17px 10px;
+ border-radius:17px;
+ color:#65708e;
+ transition:.2s;
+}
+.shift-btn strong{
+ display:block;
+ font-size:23px;
+ margin-bottom:5px;
+}
+.shift-btn small{font-size:13px}
+.shift-btn.active{
+ border-color:#625ee9;
+ background:#eeedff;
+ color:#514ec5;
+ box-shadow:0 7px 20px #625ee91a;
+}
+.section{
+ background:white;
+ padding:21px;
+ border-radius:22px;
+ margin-top:20px;
+ border:1px solid #e8ebfa;
+ box-shadow:0 10px 30px #303b7910;
+}
+.section h2{font-size:21px;margin:0 0 8px}
+.subtitle{color:#818ba2;margin:0 0 17px;font-size:13px}
+
+.lesson{
+ display:flex;
+ align-items:center;
+ gap:13px;
+ padding:15px;
+ border:1px solid #e8ebf6;
+ border-radius:15px;
+ margin-bottom:10px;
+ background:#fafbff;
+}
+.number{
+ width:45px;height:45px;
+ border-radius:13px;
+ display:grid;
+ place-items:center;
+ background:#e9edff;
+ color:#4c57ba;
+ font-weight:850;
+ flex-shrink:0;
+}
+.info{flex:1;min-width:0}
+.info strong{display:block;font-size:16px}
+.info small{
+ display:block;
+ color:#818ba2;
+ margin-top:4px;
+}
+.time{
+ font-size:15px;
+ font-weight:800;
+ white-space:nowrap;
+ font-variant-numeric:tabular-nums;
+}
+.lesson.active{
+ border:2px solid #625ee9;
+ background:#f0efff;
+}
+.lesson.active .number{
+ background:#625ee9;
+ color:white;
+}
+.lesson.done{opacity:.58}
+
+.break{
+ background:#fff5df;
+ border:1px solid #ffe6a7;
+ color:#9a6b16;
+ text-align:center;
+ padding:11px;
+ border-radius:12px;
+ margin:8px 0;
+ font-size:13px;
+ font-weight:650;
+}
+.break.active{
+ background:#ffe6a7;
+ outline:2px solid #f0bc4b;
+}
+.notice{
+ background:#eef2ff;
+ border-radius:13px;
+ padding:14px;
+ color:#5863a6;
+ font-size:13px;
+ line-height:1.7;
+ margin-top:15px;
+}
+footer{
+ text-align:center;
+ color:#8992a9;
+ padding:25px;
+ font-size:13px;
+}
+@media(max-width:430px){
+ .hero h1{font-size:23px}
+ .section{padding:15px}
+ .lesson{padding:12px;gap:9px}
+ .number{width:39px;height:39px}
+ .time{font-size:13px}
+ .info strong{font-size:14px}
+ .shift-btn strong{font-size:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<a href="index.html" class="back">←</a>
+<div class="logo">🏫 10-maktab</div>
+</header>
+
+<main>
+
+<div class="hero">
+<h1>🔔 Qo‘ng‘iroqlar jadvali</h1>
+<p>1-smena va 2-smena dars vaqtlarini kuzatib boring.</p>
+</div>
+
+<!-- JONLI SOAT -->
+<div class="clock-card">
+<div class="date" id="date">Sana</div>
+<div class="clock" id="clock">00:00:00</div>
+<div class="status" id="status">Yuklanmoqda...</div>
+<div class="countdown" id="countdown">Hisoblanmoqda...</div>
+</div>
+
+<!-- SOATNING TAGIDAGI IKKITA BO‘LIM -->
+<div class="shift-tabs">
+
+<button class="shift-btn active"
+ id="firstBtn" onclick="selectShift(1)">
+ <strong>08:00</strong>
+ <small>☀️ 1-smena</small>
+</button>
+
+<button class="shift-btn"
+ id="secondBtn" onclick="selectShift(2)">
+ <strong>13:00</strong>
+ <small>🌤️ 2-smena</small>
+</button>
+
+</div>
+
+<!-- TANLANGAN SMENA JADVALI -->
+<section class="section">
+
+<h2 id="shiftTitle">☀️ 1-smena jadvali</h2>
+<p class="subtitle" id="shiftSubtitle">
+08:00 dan boshlanadigan darslar
+</p>
+
+<div id="lessons"></div>
+
+<div class="notice">
+ℹ️ Vaqtlar namunaviy kiritilgan. Maktabingizning haqiqiy
+qo‘ng‘iroq vaqtlariga moslab quyidagi JavaScript jadvalini
+o‘zgartirishingiz mumkin.
+</div>
+
+</section>
+
+</main>
+
+<footer>
+© 2026 • 10-maktab • Bilim sari birga! 🎓
+</footer>
+
+<script>
+
+/*
+=====================================
+1-SMENA: 08:00 DAN
+2-SMENA: 13:00 DAN
+
+VAQTLARNI SHU YERDAN O‘ZGARTIRASAN
+=====================================
+*/
+
+const schedules={
+
+ 1:[
+  {name:"1-dars",start:"08:00",end:"08:45"},
+  {name:"2-dars",start:"08:50",end:"09:35"},
+  {name:"3-dars",start:"09:40",end:"10:25"},
+  {name:"4-dars",start:"10:35",end:"11:20"},
+  {name:"5-dars",start:"11:25",end:"12:10"},
+  {name:"6-dars",start:"12:15",end:"13:00"}
+ ],
+
+ 2:[
+  {name:"1-dars",start:"13:00",end:"13:45"},
+  {name:"2-dars",start:"13:50",end:"14:35"},
+  {name:"3-dars",start:"14:40",end:"15:25"},
+  {name:"4-dars",start:"15:35",end:"16:20"},
+  {name:"5-dars",start:"16:25",end:"17:10"},
+  {name:"6-dars",start:"17:15",end:"18:00"}
+ ]
+
+};
+
+let selectedShift=1;
+
+const $=id=>document.getElementById(id);
+
+function toSeconds(time){
+ const [h,m]=time.split(":").map(Number);
+ return h*3600+m*60;
+}
+
+function formatCountdown(total){
+ total=Math.max(0,Math.floor(total));
+
+ const h=Math.floor(total/3600);
+ const m=Math.floor(total%3600/60);
+ const s=total%60;
+ const pad=n=>String(n).padStart(2,"0");
+
+ return h>0
+  ?pad(h)+":"+pad(m)+":"+pad(s)
+  :pad(m)+":"+pad(s);
+}
+
+/* SMENANI TANLASH */
+function selectShift(shift){
+
+ selectedShift=shift;
+
+ $("firstBtn").classList.toggle("active",shift===1);
+ $("secondBtn").classList.toggle("active",shift===2);
+
+ $("shiftTitle").textContent=
+  shift===1
+  ?"☀️ 1-smena jadvali"
+  :"🌤️ 2-smena jadvali";
+
+ $("shiftSubtitle").textContent=
+  shift===1
+  ?"08:00 dan boshlanadigan darslar"
+  :"13:00 dan boshlanadigan darslar";
+
+ update();
+}
+
+/* DARSLARNI CHIZISH */
+function renderLessons(currentSeconds,isSunday){
+
+ const schedule=schedules[selectedShift];
+ const box=$("lessons");
+
+ box.replaceChildren();
+
+ schedule.forEach((lesson,i)=>{
+
+  const start=toSeconds(lesson.start);
+  const end=toSeconds(lesson.end);
+
+  const active=
+   !isSunday&&currentSeconds>=start&&currentSeconds<end;
+
+  const done=
+   !isSunday&&currentSeconds>=end;
+
+  const div=document.createElement("div");
+  div.className="lesson";
+
+  if(active)div.classList.add("active");
+  if(done)div.classList.add("done");
+
+  const number=document.createElement("div");
+  number.className="number";
+  number.textContent=i+1;
+
+  const info=document.createElement("div");
+  info.className="info";
+
+  const title=document.createElement("strong");
+  title.textContent=lesson.name;
+
+  const small=document.createElement("small");
+
+  if(isSunday){
+   small.textContent="Dam olish kuni";
+  }else if(active){
+   small.textContent="🟢 Hozir davom etmoqda";
+  }else if(done){
+   small.textContent="✓ Tugagan";
+  }else{
+   small.textContent="Kutilmoqda";
+  }
+
+  info.append(title,small);
+
+  const time=document.createElement("div");
+  time.className="time";
+  time.textContent=lesson.start+" – "+lesson.end;
+
+  div.append(number,info,time);
+  box.append(div);
+
+  /* TANAFFUS */
+  if(i<schedule.length-1){
+
+   const next=schedule[i+1];
+   const breakStart=toSeconds(lesson.end);
+   const breakEnd=toSeconds(next.start);
+
+   if(breakEnd>breakStart){
+
+    const rest=document.createElement("div");
+    rest.className="break";
+
+    const duration=(breakEnd-breakStart)/60;
+
+    rest.textContent="☕ Tanaffus — "+duration+" daqiqa";
+
+    if(
+     !isSunday&&
+     currentSeconds>=breakStart&&
+     currentSeconds<breakEnd
+    ){
+     rest.classList.add("active");
+     rest.textContent=
+      "🔔 Hozir tanaffus — "+duration+" daqiqa";
+    }
+
+    box.append(rest);
+   }
+  }
+ });
+}
+
+/* JONLI SOAT VA QO‘NG‘IROQ HOLATI */
+function update(){
+
+ const now=new Date();
+
+ const currentSeconds=
+  now.getHours()*3600+
+  now.getMinutes()*60+
+  now.getSeconds();
+
+ const isSunday=now.getDay()===0;
+
+ $("clock").textContent=
+  now.toLocaleTimeString("uz-UZ",{
+   hour12:false,
+   hour:"2-digit",
+   minute:"2-digit",
+   second:"2-digit"
+  });
+
+ $("date").textContent=
+  now.toLocaleDateString("uz-UZ",{
+   weekday:"long",
+   day:"numeric",
+   month:"long",
+   year:"numeric"
+  });
+
+ const schedule=schedules[selectedShift];
+
+ /* YAKSHANBA */
+ if(isSunday){
+  $("status").textContent="🏡 Dam olish kuni";
+  $("countdown").textContent="Bugun yakshanba";
+  renderLessons(currentSeconds,true);
+  return;
+ }
+
+ /* TANLANGAN SMENA HALI BOSHLANMAGAN */
+ if(currentSeconds<toSeconds(schedule[0].start)){
+
+  $("status").textContent=
+   "⏳ "+selectedShift+"-smena hali boshlanmadi";
+
+  $("countdown").textContent=
+   "Birinchi darsgacha: "+
+   formatCountdown(
+    toSeconds(schedule[0].start)-currentSeconds
+   );
+
+  renderLessons(currentSeconds,false);
+  return;
+ }
+
+ /* TANLANGAN SMENA TUGAGAN */
+ const last=schedule[schedule.length-1];
+
+ if(currentSeconds>=toSeconds(last.end)){
+
+  $("status").textContent=
+   "✅ "+selectedShift+"-smena darslari tugadi";
+
+  $("countdown").textContent=
+   "Barcha qo‘ng‘iroqlar yakunlandi";
+
+  renderLessons(currentSeconds,false);
+  return;
+ }
+
+ /* HOZIRGI DARS YOKI TANAFFUS */
+ for(let i=0;i<schedule.length;i++){
+
+  const lesson=schedule[i];
+  const start=toSeconds(lesson.start);
+  const end=toSeconds(lesson.end);
+
+  if(currentSeconds>=start&&currentSeconds<end){
+
+   $("status").textContent=
+    "📖 "+selectedShift+"-smena • "+lesson.name;
+
+   $("countdown").textContent=
+    "Dars tugashiga: "+
+    formatCountdown(end-currentSeconds);
+
+   renderLessons(currentSeconds,false);
+   return;
+  }
+
+  if(i<schedule.length-1){
+
+   const nextStart=toSeconds(schedule[i+1].start);
+
+   if(currentSeconds>=end&&currentSeconds<nextStart){
+
+    $("status").textContent="☕ Hozir tanaffus";
+
+    $("countdown").textContent=
+     "Keyingi darsgacha: "+
+     formatCountdown(nextStart-currentSeconds);
+
+    renderLessons(currentSeconds,false);
+    return;
+   }
+  }
+ }
+}
+
+/* SAHIFA OCHILGANDA HOZIRGI SMENANI TANLASH */
+const hour=new Date().getHours();
+
+if(hour>=13){
+ selectShift(2);
+}else{
+ selectShift(1);
+}
+
+update();
+setInterval(update,1000);
+
+</script>
+</body>
+</html>
